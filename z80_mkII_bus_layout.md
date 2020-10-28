@@ -3,51 +3,53 @@
 
 Monitor edge connector, from top:
 
-A15
-A14
-A13
-A12
-A11
-A10
-A9
-A8
-/BUSRQ
-A7
-A6
-A5
-A4
-A3
-A2
-A1
-A0
-/BUSAK
-D7
-D6
-D5
-D4
-D3
-D2
-D1
-D0
-/RD
-???
-/MREQ
-??? (Goes to PSU card)
-NC
-GND
-NC
-NC
-NC
-NC
-NC
-[Index slot]
+| Number from Bottom | Function |
+| ------------------ | -------- |
+|  37 | A15 |
+|  36 | A14 |
+|  35 | A13 |
+|  34 | A12 |
+|  33 | A11 |
+|  32 | A10 |
+|  31 | A9 |
+|  30 | A8 |
+|  29 | /BUSRQ |
+|  28 | A7 |
+|  27 | A6 |
+|  26 | A5 |
+|  25 | A4 |
+|  24 | A3 |
+|  23 | A2 |
+|  22 | A1 |
+|  21 | A0 |
+|  20 | /BUSAK |
+|  19 | D7 |
+|  18 | D6 |
+|  17 | D5 |
+|  16 | D4 |
+|  15 | D3 |
+|  14 | D2 |
+|  13 | D1 |
+|  12 | D0 |
+|  11 | /RD |
+|  10 | ??? |
+|  9 | /MREQ |
+|  8 | ??? (Goes to PSU card) |
+|  7 | NC |
+|  6 | GND |
+|  5 | NC |
+|  4 | NC |
+|  3 | NC |
+|  2 | NC |
+|  1 | NC |
+|    | [Index slot] |
 
 Inter-Board connector, from top
 
 | Number from Top | Function |
 | --------------- | -------- |
 |  1 | ?                                         |
-|  2 |/RESET                                     |
+|  2 | /RESET                                    |
 |  3 | /IORQ                                     |
 |  4 | /WR                                       |
 |  5 | /RD                                       |
