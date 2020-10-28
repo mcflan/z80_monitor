@@ -32,9 +32,9 @@ Monitor edge connector, from top:
 |  13 | D1 |
 |  12 | D0 |
 |  11 | /RD |
-|  10 | ??? |
+|  10 | /RAM_WR |
 |  9 | /MREQ |
-|  8 | ??? (Goes to PSU card) |
+|  8 | /EXT_RESET |
 |  7 | NC |
 |  6 | GND |
 |  5 | NC |
@@ -46,17 +46,17 @@ Monitor edge connector, from top:
 
 Inter-Board connector, from top
 
-| Number from Top | Function |
-| --------------- | -------- |
-|  1 | ?                                         |
-|  2 | /RESET                                    |
-|  3 | /IORQ                                     |
-|  4 | /WR                                       |
-|  5 | /RD                                       |
-|  6 | (Offboard clock, not same as CPU clk??)   |
-|  7 | /M1                                       |
+| Number from Top | Function | Comment |
+| --------------- | -------- | ------- |
+|  1 | ?       | Could be a write enable for RAM |
+|  2 | /RESET  |
+|  3 | /IORQ   |
+|  4 | /WR     |
+|  5 | /RD     |
+|  6 | IO_CLK  |
+|  7 | /M1     |
 |  8 | A7 |
-|  9 | A6 (not connected?) |
+|  9 | A6  | Possible bad connection in edge connector, CPU side, reads 5 ohms |
 | 10 | A5 |
 | 11 | A4 |
 | 12 | A3 |
