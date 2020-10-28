@@ -32,7 +32,7 @@ Monitor edge connector, from top:
 |  13 | D1 |
 |  12 | D0 |
 |  11 | /RD |
-|  10 | /RAM_WR |
+|  10 | /MON_WR |
 |  9 | /MREQ |
 |  8 | /EXT_RESET |
 |  7 | NC |
