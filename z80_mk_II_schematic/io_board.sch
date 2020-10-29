@@ -19,8 +19,8 @@ U 1 1 5FC165EB
 P 1650 2400
 F 0 "U13" H 1650 2800 50  0000 C CNN
 F 1 "Z80_PIO" H 1650 2700 50  0000 C CNN
-F 2 "" H 1650 1000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 1600 800 50  0001 C CNN
+F 2 "Housings_DIP:DIP-40_W15.24mm" H 1650 1000 50  0001 C CNN
+F 3 "" H 1600 800 50  0001 C CNN
 	1    1650 2400
 	1    0    0    -1  
 $EndComp
@@ -30,8 +30,8 @@ U 1 1 5FC1756B
 P 9500 2400
 F 0 "U19" H 9500 2800 50  0000 C CNN
 F 1 "Z80_PIO" H 9500 2700 50  0000 C CNN
-F 2 "" H 9500 1000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 9450 800 50  0001 C CNN
+F 2 "Housings_DIP:DIP-40_W15.24mm" H 9500 1000 50  0001 C CNN
+F 3 "" H 9450 800 50  0001 C CNN
 	1    9500 2400
 	1    0    0    -1  
 $EndComp
@@ -41,8 +41,8 @@ U 1 1 60257463
 P 5500 2400
 F 0 "U17" H 5500 2800 50  0000 C CNN
 F 1 "Z80_CTC" H 5500 2700 50  0000 C CNN
-F 2 "" H 5500 1000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 5450 800 50  0001 C CNN
+F 2 "Housings_DIP:DIP-28_W15.24mm_Socket" H 5500 1000 50  0001 C CNN
+F 3 "" H 5450 800 50  0001 C CNN
 	1    5500 2400
 	1    0    0    -1  
 $EndComp
@@ -383,7 +383,7 @@ U 1 1 5FA6919F
 P 9300 5200
 F 0 "U18" H 9300 5250 50  0000 C CNN
 F 1 "74LS138" H 9250 5150 50  0000 C CNN
-F 2 "" H 9300 5200 50  0001 C CNN
+F 2 "Housings_DIP:DIP-16_W7.62mm_Socket" H 9300 5200 50  0001 C CNN
 F 3 "" H 9300 5200 50  0001 C CNN
 	1    9300 5200
 	1    0    0    -1  
@@ -394,7 +394,7 @@ U 1 1 5FA713EA
 P 3350 1700
 F 0 "U15" H 3250 1550 50  0000 C CNN
 F 1 "74LS145" H 3250 1450 50  0000 C CNN
-F 2 "" H 3350 1700 50  0001 C CNN
+F 2 "Housings_DIP:DIP-16_W7.62mm_Socket" H 3350 1700 50  0001 C CNN
 F 3 "" H 3350 1700 50  0001 C CNN
 	1    3350 1700
 	1    0    0    -1  
@@ -413,7 +413,7 @@ U 1 1 5FAA2120
 P 2950 2800
 F 0 "D11" H 2950 3017 50  0000 C CNN
 F 1 "1N4148" H 2950 2926 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 2625 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 2625 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 2800 50  0001 C CNN
 	1    2950 2800
 	1    0    0    -1  
@@ -424,7 +424,7 @@ U 1 1 5FAA549C
 P 2950 2950
 F 0 "D12" H 2950 3167 50  0000 C CNN
 F 1 "1N4148" H 2950 3076 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 2775 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 2775 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 2950 50  0001 C CNN
 	1    2950 2950
 	1    0    0    -1  
@@ -435,7 +435,7 @@ U 1 1 5FAA68EB
 P 2950 3100
 F 0 "D13" H 2950 3317 50  0000 C CNN
 F 1 "1N4148" H 2950 3226 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 2925 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 2925 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 3100 50  0001 C CNN
 	1    2950 3100
 	1    0    0    -1  
@@ -446,7 +446,7 @@ U 1 1 5FAA6F46
 P 2950 3250
 F 0 "D14" H 2950 3467 50  0000 C CNN
 F 1 "1N4148" H 2950 3376 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3075 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3075 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 3250 50  0001 C CNN
 	1    2950 3250
 	1    0    0    -1  
@@ -457,7 +457,7 @@ U 1 1 5FAAAE71
 P 2950 3400
 F 0 "D15" H 2950 3617 50  0000 C CNN
 F 1 "1N4148" H 2950 3526 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3225 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3225 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 3400 50  0001 C CNN
 	1    2950 3400
 	1    0    0    -1  
@@ -468,7 +468,7 @@ U 1 1 5FAAB4F8
 P 2950 3550
 F 0 "D16" H 2950 3767 50  0000 C CNN
 F 1 "1N4148" H 2950 3676 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3375 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3375 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 3550 50  0001 C CNN
 	1    2950 3550
 	1    0    0    -1  
@@ -479,7 +479,7 @@ U 1 1 5FAABD9F
 P 2950 3700
 F 0 "D17" H 2950 3917 50  0000 C CNN
 F 1 "1N4148" H 2950 3826 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3525 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3525 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 3700 50  0001 C CNN
 	1    2950 3700
 	1    0    0    -1  
@@ -490,7 +490,7 @@ U 1 1 5FAB0E3B
 P 2950 3850
 F 0 "D18" H 2950 4067 50  0000 C CNN
 F 1 "1N4148" H 2950 3976 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3675 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3675 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 3850 50  0001 C CNN
 	1    2950 3850
 	1    0    0    -1  
@@ -501,7 +501,7 @@ U 1 1 5FAB36B1
 P 2950 4000
 F 0 "D19" H 2950 4217 50  0000 C CNN
 F 1 "1N4148" H 2950 4126 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3825 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3825 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 4000 50  0001 C CNN
 	1    2950 4000
 	1    0    0    -1  
@@ -512,7 +512,7 @@ U 1 1 5FAB3FEE
 P 2950 4150
 F 0 "D20" H 2950 4367 50  0000 C CNN
 F 1 "1N4148" H 2950 4276 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 3975 50  0001 C CNN
+F 2 "Diodes_ThroughHole:D_DO-27_P5.08mm_Vertical_KathodeUp" H 2950 3975 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2950 4150 50  0001 C CNN
 	1    2950 4150
 	1    0    0    -1  
@@ -1258,7 +1258,7 @@ U 1 1 6047885C
 P 2100 6750
 F 0 "U14" H 2100 7000 50  0000 C CNN
 F 1 "74LS245" H 2100 6450 50  0000 C CNN
-F 2 "" H 2100 6750 50  0001 C CNN
+F 2 "Housings_DIP:DIP-20_W7.62mm_Socket" H 2100 6750 50  0001 C CNN
 F 3 "" H 2100 6750 50  0001 C CNN
 	1    2100 6750
 	1    0    0    -1  
@@ -1269,7 +1269,7 @@ U 1 1 605F268B
 P 3750 6750
 F 0 "U16" H 3750 7000 50  0000 C CNN
 F 1 "74LS245" H 3750 6450 50  0000 C CNN
-F 2 "" H 3750 6750 50  0001 C CNN
+F 2 "Housings_DIP:DIP-20_W7.62mm_Socket" H 3750 6750 50  0001 C CNN
 F 3 "" H 3750 6750 50  0001 C CNN
 	1    3750 6750
 	1    0    0    -1  
@@ -1574,7 +1574,7 @@ U 3 1 60B74599
 P 1450 4600
 F 0 "U12" V 1400 4600 50  0000 C CNN
 F 1 "74LS00" V 1700 4650 50  0000 L CNN
-F 2 "" H 1450 4600 50  0001 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 1450 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 1450 4600 50  0001 C CNN
 	3    1450 4600
 	0    1    1    0   
@@ -1598,7 +1598,7 @@ U 4 1 60BBE816
 P 1850 4600
 F 0 "U12" V 1800 4600 50  0000 C CNN
 F 1 "74LS00" V 1895 4788 50  0001 L CNN
-F 2 "" H 1850 4600 50  0001 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 1850 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 1850 4600 50  0001 C CNN
 	4    1850 4600
 	0    1    1    0   
@@ -1613,7 +1613,7 @@ U 2 1 60BE6097
 P 1650 5300
 F 0 "U12" V 1600 5300 50  0000 C CNN
 F 1 "74LS00" V 1695 5488 50  0001 L CNN
-F 2 "" H 1650 5300 50  0001 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 1650 5300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 1650 5300 50  0001 C CNN
 	2    1650 5300
 	0    1    1    0   
@@ -1786,7 +1786,7 @@ U 5 1 61049467
 P 5400 6950
 F 0 "U12" H 5300 7000 50  0000 L CNN
 F 1 "74LS00" H 5250 6900 50  0000 L CNN
-F 2 "" H 5400 6950 50  0001 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 5400 6950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 5400 6950 50  0001 C CNN
 	5    5400 6950
 	1    0    0    -1  
