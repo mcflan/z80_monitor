@@ -49,7 +49,7 @@ $EndComp
 $Sheet
 S 5000 4350 1100 1050
 U 6029665D
-F0 "Sheet6029665C" 50
+F0 "Baud Clock" 50
 F1 "baud_clock.sch" 50
 F2 "CLK_OUT" O R 6100 4900 50 
 F3 "DIV2_OUT" O R 6100 5250 50 
@@ -70,7 +70,7 @@ Wire Wire Line
 $Sheet
 S 7200 3500 750  1900
 U 6026683D
-F0 "Sheet6026683C" 50
+F0 "UART" 50
 F1 "uart.sch" 50
 F2 "TX_CLK" I L 7200 4050 50 
 F3 "RX_CLK" I L 7200 4250 50 

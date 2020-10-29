@@ -16,7 +16,7 @@ $EndDescr
 $Sheet
 S 2850 2800 2100 2300
 U 5F9960CD
-F0 "Sheet5F9960CC" 50
+F0 "CPU Board" 50
 F1 "cpu_mem_board.sch" 50
 F2 "CPU_CLK" I L 2850 4650 50 
 F3 "~INT~" I R 4950 4000 50 
@@ -35,7 +35,7 @@ $EndSheet
 $Sheet
 S 2850 5900 2050 1250
 U 5F996C40
-F0 "Sheet5F996C3F" 50
+F0 "PSU Board" 50
 F1 "psu_board.sch" 50
 F2 "~RESET~" O L 2850 6050 50 
 F3 "~EXT_RESET~" I L 2850 6150 50 
@@ -45,7 +45,7 @@ $EndSheet
 $Sheet
 S 6300 2800 2100 2300
 U 5F996112
-F0 "Sheet5F996111" 50
+F0 "IO Board" 50
 F1 "io_board.sch" 50
 F2 "~M1~" I L 6300 3800 50 
 F3 "~IORQ~" I L 6300 3400 50 
