@@ -860,6 +860,76 @@ F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 6450 6000 50  0001 C CNN
 	3    6450 6000
 	0    -1   -1   0   
 $EndComp
+$Comp
+L 74xx:74LS32 U32
+U 2 1 5F9F56CD
+P 5300 7450
+F 0 "U32" H 5300 7450 50  0000 C CNN
+F 1 "74LS32" H 5300 7684 50  0000 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 5300 7450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 5300 7450 50  0001 C CNN
+	2    5300 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx:74LS32 U32
+U 3 1 5F9F777F
+P 6250 7450
+F 0 "U32" H 6250 7450 50  0000 C CNN
+F 1 "74LS32" H 6250 7684 50  0000 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 6250 7450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 6250 7450 50  0001 C CNN
+	3    6250 7450
+	1    0    0    -1  
+$EndComp
+NoConn ~ 5950 7550
+NoConn ~ 5950 7350
+NoConn ~ 5000 7550
+NoConn ~ 5000 7350
+Text Notes 5050 7750 0    40   ~ 0
+Unused inputs currently floating.\nShould be connected to 0V or +5V
+$Comp
+L 74xx:74LS00 U26
+U 4 1 5FD3BF49
+P 3700 3450
+F 0 "U26" V 3700 3550 50  0000 R CNN
+F 1 "74LS00" H 3800 3200 50  0000 R CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 3700 3450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 3700 3450 50  0001 C CNN
+	4    3700 3450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 3350 3350 3350
+Wire Wire Line
+	3350 3350 3350 3450
+Wire Wire Line
+	3350 3550 3400 3550
+Wire Wire Line
+	4650 4500 5000 4500
+Wire Wire Line
+	4000 3450 4650 3450
+Wire Wire Line
+	4650 3450 4650 4500
+$Comp
+L power:+5V #PWR0118
+U 1 1 5FD709B6
+P 3150 3700
+F 0 "#PWR0118" H 3150 3550 50  0001 C CNN
+F 1 "+5V" H 3165 3873 50  0000 C CNN
+F 2 "" H 3150 3700 50  0001 C CNN
+F 3 "" H 3150 3700 50  0001 C CNN
+	1    3150 3700
+	1    0    0    -1  
+$EndComp
+Text HLabel 2050 3450 0    50   Input ~ 0
+~RESET~
+Wire Wire Line
+	2050 3450 3350 3450
+Connection ~ 3350 3450
+Wire Wire Line
+	3350 3450 3350 3550
+NoConn ~ 3650 4300
 Wire Bus Line
 	2050 1900 6400 1900
 Wire Bus Line
@@ -868,4 +938,6 @@ Wire Bus Line
 	4600 2000 4600 3300
 Wire Bus Line
 	6500 2000 6500 4300
+Text Notes 3700 4350 0    40   ~ 0
+This should not be\nfloating
 $EndSCHEMATC

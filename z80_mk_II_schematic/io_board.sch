@@ -785,11 +785,7 @@ Wire Wire Line
 Wire Wire Line
 	1150 2700 1050 2700
 Wire Wire Line
-	1150 2600 1050 2600
-Wire Wire Line
 	1150 2500 800  2500
-Text HLabel 1050 2600 0    50   Input ~ 0
-~M1~
 Text HLabel 1050 2700 0    50   Input ~ 0
 ~IORQ~
 Text HLabel 1050 2800 0    50   Input ~ 0
@@ -1018,9 +1014,7 @@ Wire Wire Line
 Wire Wire Line
 	7200 2500 7350 2500
 Wire Wire Line
-	7850 2300 8200 2300
-Text HLabel 8200 2300 2    50   Input ~ 0
-~WR~
+	7850 2300 8150 2300
 $Comp
 L Connector_Generic:Conn_02x10_Odd_Even J4
 U 1 1 601564B8
@@ -1663,10 +1657,6 @@ Wire Wire Line
 Text HLabel 7050 5050 0    50   Input ~ 0
 ~RD~
 Wire Wire Line
-	7200 5150 7050 5150
-Text HLabel 7050 5150 0    50   Input ~ 0
-~WR~
-Wire Wire Line
 	6700 5350 7100 5350
 Wire Wire Line
 	7100 5350 7100 5250
@@ -1788,7 +1778,6 @@ F 3 "" H 3350 2500 50  0001 C CNN
 $EndComp
 NoConn ~ 2150 1800
 NoConn ~ 2150 1900
-NoConn ~ 2150 2000
 NoConn ~ 6000 2550
 NoConn ~ 6000 2650
 NoConn ~ 6000 2850
@@ -1801,11 +1790,147 @@ NoConn ~ 10050 4200
 NoConn ~ 10050 4300
 NoConn ~ 10050 4400
 NoConn ~ 10050 4500
-Text Notes 8850 4300 0    50   ~ 0
+Text Notes 9850 4300 2    50   ~ 0
 The unused pins here\nshould be connected to GND\nand +5V as per beeb user\nport.
 NoConn ~ 9800 5400
 NoConn ~ 9800 5500
 NoConn ~ 9800 5600
+NoConn ~ 800  4450
+NoConn ~ 1000 4450
+Text Notes 950  5600 1    40   ~ 0
+Unused inputs currently floating.\nShould be connected to 0V or +5V
+$Comp
+L 74xx:74LS00 U12
+U 1 1 5FA376B0
+P 900 4150
+F 0 "U12" H 900 4150 50  0000 C CNN
+F 1 "74LS00" V 945 4338 50  0001 L CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 900 4150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 900 4150 50  0001 C CNN
+	1    900  4150
+	0    -1   -1   0   
+$EndComp
+Text Label 7900 2300 0    50   ~ 0
+~WRB~
+$Comp
+L 74xx:74LS04 U?
+U 5 1 5FB7DC06
+P 10450 6250
+AR Path="/5F996112/6026683D/5FB7DC06" Ref="U?"  Part="3" 
+AR Path="/5F996112/6029665D/5FB7DC06" Ref="U?"  Part="4" 
+AR Path="/5F996112/5FB7DC06" Ref="U20"  Part="5" 
+F 0 "U20" H 10400 6250 50  0000 C CNN
+F 1 "74LS04" H 10450 6050 50  0000 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 10450 6250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS04" H 10450 6250 50  0001 C CNN
+	5    10450 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx:74LS04 U?
+U 6 1 5FBA2C4C
+P 9750 6250
+AR Path="/5F996112/6026683D/5FBA2C4C" Ref="U?"  Part="3" 
+AR Path="/5F996112/6029665D/5FBA2C4C" Ref="U?"  Part="4" 
+AR Path="/5F996112/5FBA2C4C" Ref="U20"  Part="6" 
+F 0 "U20" H 9700 6250 50  0000 C CNN
+F 1 "74LS04" H 9750 6050 50  0000 C CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 9750 6250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS04" H 9750 6250 50  0001 C CNN
+	6    9750 6250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 6250 10150 6250
+Wire Wire Line
+	10750 6250 11000 6250
+Text Label 10800 6250 0    50   ~ 0
+~WRB~
+Wire Wire Line
+	7200 5150 7050 5150
+Wire Wire Line
+	7050 5150 7050 5200
+Wire Wire Line
+	7050 5200 6700 5200
+Text Label 6700 5200 0    50   ~ 0
+~WRB~
+Wire Wire Line
+	9450 6250 9250 6250
+Text HLabel 9250 6250 0    50   Input ~ 0
+~WR~
+Text Notes 9700 6050 0    40   ~ 0
+Not sure why ~WR~ was\nbuffered like this.
+$Comp
+L 74xx:74LS00 U?
+U 1 1 5FE03CE8
+P 6950 6150
+AR Path="/5F996112/6026683D/5FE03CE8" Ref="U?"  Part="1" 
+AR Path="/5F996112/5FE03CE8" Ref="U26"  Part="1" 
+F 0 "U26" V 6950 6250 50  0000 R CNN
+F 1 "74LS00" H 7050 5900 50  0000 R CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 6950 6150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 6950 6150 50  0001 C CNN
+	1    6950 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx:74LS00 U?
+U 2 1 5FE03CEE
+P 7700 6150
+AR Path="/5F996112/6026683D/5FE03CEE" Ref="U?"  Part="2" 
+AR Path="/5F996112/5FE03CEE" Ref="U26"  Part="2" 
+F 0 "U26" V 7700 6250 50  0000 R CNN
+F 1 "74LS00" H 7800 5900 50  0000 R CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm" H 7700 6150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 7700 6150 50  0001 C CNN
+	2    7700 6150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7400 6050 7350 6050
+Wire Wire Line
+	7350 6050 7350 6150
+Wire Wire Line
+	7350 6250 7400 6250
+Wire Wire Line
+	7250 6150 7350 6150
+Connection ~ 7350 6150
+Wire Wire Line
+	7350 6150 7350 6250
+Wire Wire Line
+	6650 6050 6450 6050
+Wire Wire Line
+	6650 6250 6450 6250
+Text HLabel 6450 6050 0    50   Input ~ 0
+~M1~
+Text HLabel 6450 6250 0    50   Input ~ 0
+~RESET~
+Wire Wire Line
+	8000 6150 8350 6150
+Text Label 8050 6150 0    50   ~ 0
+~M1_PIO~
+Wire Wire Line
+	800  2600 1150 2600
+Text Label 800  2600 0    50   ~ 0
+~M1_PIO~
+Wire Wire Line
+	2150 2000 2300 2000
+Text HLabel 2400 1050 2    50   Output ~ 0
+~RAM_WR_EN~
+Wire Wire Line
+	2300 2000 2300 1050
+Wire Wire Line
+	2300 1050 2400 1050
+Text Notes 6650 5950 0    40   ~ 0
+PIO reset-via-M1 CCT - see data sheet
+Text Notes 7800 3100 0    40   ~ 0
+Should probably\nbe connected to\n~M1_PIO~
+Wire Notes Line
+	8350 2950 8450 2950
+Wire Notes Line
+	8450 2950 8450 2600
+Wire Notes Line
+	8450 2600 8650 2600
 Wire Bus Line
 	6700 850  6700 4700
 Wire Bus Line
@@ -1823,17 +1948,17 @@ Wire Bus Line
 Wire Bus Line
 	6900 650  6900 4500
 Wire Bus Line
+	1300 6350 1300 7350
+Wire Bus Line
+	2950 6350 2950 7350
+Wire Bus Line
+	4500 6350 4500 7600
+Wire Bus Line
 	2850 5900 2850 6850
 Wire Bus Line
 	8650 650  8650 1900
 Wire Bus Line
 	4650 650  4650 1900
-Wire Bus Line
-	4500 6350 4500 7600
-Wire Bus Line
-	2950 6350 2950 7350
-Wire Bus Line
-	1300 6350 1300 7350
 Wire Bus Line
 	700  650  700  5700
 $EndSCHEMATC
