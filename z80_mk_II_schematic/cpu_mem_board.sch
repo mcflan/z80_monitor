@@ -1745,11 +1745,21 @@ F 3 "~" H 700 2800 50  0001 C CNN
 $EndComp
 NoConn ~ 6900 3200
 NoConn ~ 6900 3300
-NoConn ~ 2350 2950
-Text Notes 1550 3100 0    50   ~ 0
-~WAIT~ should have\na pull-up - check\nthis.
 Wire Wire Line
 	6450 3400 6900 3400
+$Comp
+L power:+5V #PWR?
+U 1 1 5F9DDD0A
+P 2150 2950
+F 0 "#PWR?" H 2150 2800 50  0001 C CNN
+F 1 "+5V" V 2165 3078 50  0000 L CNN
+F 2 "" H 2150 2950 50  0001 C CNN
+F 3 "" H 2150 2950 50  0001 C CNN
+	1    2150 2950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2350 2950 2150 2950
 Wire Bus Line
 	1500 900  10450 900 
 Wire Bus Line
