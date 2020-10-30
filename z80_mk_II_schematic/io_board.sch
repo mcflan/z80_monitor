@@ -1761,6 +1761,51 @@ F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 5400 6950 50  0001 C CNN
 	5    5400 6950
 	1    0    0    -1  
 $EndComp
+NoConn ~ 10000 2500
+NoConn ~ 10000 2600
+NoConn ~ 10000 2700
+NoConn ~ 10000 2800
+NoConn ~ 10000 2900
+NoConn ~ 10000 3000
+NoConn ~ 10000 3100
+NoConn ~ 10000 3200
+NoConn ~ 10000 3400
+NoConn ~ 10000 3500
+NoConn ~ 2150 3400
+NoConn ~ 2150 3500
+NoConn ~ 2150 2200
+NoConn ~ 2150 2300
+$Comp
+L power:GND #PWR0114
+U 1 1 5FD8B7DA
+P 3350 2500
+F 0 "#PWR0114" H 3350 2250 50  0001 C CNN
+F 1 "GND" H 3355 2327 50  0000 C CNN
+F 2 "" H 3350 2500 50  0001 C CNN
+F 3 "" H 3350 2500 50  0001 C CNN
+	1    3350 2500
+	1    0    0    -1  
+$EndComp
+NoConn ~ 2150 1800
+NoConn ~ 2150 1900
+NoConn ~ 2150 2000
+NoConn ~ 6000 2550
+NoConn ~ 6000 2650
+NoConn ~ 6000 2850
+NoConn ~ 10050 3700
+NoConn ~ 10050 3800
+NoConn ~ 10050 3900
+NoConn ~ 10050 4000
+NoConn ~ 10050 4100
+NoConn ~ 10050 4200
+NoConn ~ 10050 4300
+NoConn ~ 10050 4400
+NoConn ~ 10050 4500
+Text Notes 8850 4300 0    50   ~ 0
+The unused pins here\nshould be connected to GND\nand +5V as per beeb user\nport.
+NoConn ~ 9800 5400
+NoConn ~ 9800 5500
+NoConn ~ 9800 5600
 Wire Bus Line
 	6700 850  6700 4700
 Wire Bus Line

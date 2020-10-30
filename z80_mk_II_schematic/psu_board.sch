@@ -1344,4 +1344,5 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS04" H 5500 6400 50  0001 C CNN
 	7    5500 6400
 	1    0    0    -1  
 $EndComp
+NoConn ~ -9250 3300
 $EndSCHEMATC

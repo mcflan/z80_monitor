@@ -269,8 +269,6 @@ F 3 "~" H 7100 5450 50  0001 C CNN
 	1    7100 5450
 	0    -1   -1   0   
 $EndComp
-Text GLabel 7150 4450 2    50   Input ~ 0
-RAM_WE?
 Connection ~ 6900 4450
 Wire Wire Line
 	6900 4450 7150 4450
@@ -472,8 +470,6 @@ F 3 "https://www.futurlec.com/Datasheet/Memory/62256.pdf" H 9050 2300 50  0001 C
 $EndComp
 Text Label 6450 3400 0    50   ~ 0
 ~EPROM_CE~
-Wire Wire Line
-	6500 3400 6900 3400
 Text Label 6050 2600 0    50   ~ 0
 ~RAM0_CE~
 $Comp
@@ -1560,8 +1556,6 @@ Wire Wire Line
 	900  3900 1000 3900
 Text Label 950  3800 0    50   ~ 0
 ~MREQ~
-Text Label 950  4000 0    50   ~ 0
-NC
 $Comp
 L power:GND #PWR01
 U 1 1 6016FD6B
@@ -1585,27 +1579,6 @@ Text Label 950  2700 0    50   ~ 0
 ~BUSAK~
 Text Label 900  1800 0    50   ~ 0
 ~BUSRQ~
-Text Label 950  4200 0    50   ~ 0
-NC
-Text Label 950  4300 0    50   ~ 0
-NC
-Text Label 950  4400 0    50   ~ 0
-NC
-$Comp
-L Connector:Conn_01x37_Male J1
-U 1 1 601C9BCA
-P 700 2800
-F 0 "J1" H 808 4689 50  0000 C CNN
-F 1 "Conn_01x37_Male" H 808 4690 50  0001 C CNN
-F 2 "" H 700 2800 50  0001 C CNN
-F 3 "~" H 700 2800 50  0001 C CNN
-	1    700  2800
-	1    0    0    -1  
-$EndComp
-Text Label 950  4500 0    50   ~ 0
-NC
-Text Label 950  4600 0    50   ~ 0
-NC
 Wire Wire Line
 	1500 5150 2300 5150
 Text HLabel 2300 5150 2    50   Output ~ 0
@@ -1751,6 +1724,32 @@ F 3 "~" H 3400 6000 50  0001 C CNN
 	1    3400 6000
 	1    0    0    -1  
 $EndComp
+Text HLabel 7150 4450 2    50   Input ~ 0
+RAM_WR_EN
+NoConn ~ 900  4200
+NoConn ~ 900  4300
+NoConn ~ 900  4400
+NoConn ~ 900  4500
+NoConn ~ 900  4600
+NoConn ~ 900  4000
+$Comp
+L Connector:Conn_01x37_Male J1
+U 1 1 601C9BCA
+P 700 2800
+F 0 "J1" H 808 4689 50  0000 C CNN
+F 1 "Conn_01x37_Male" H 808 4690 50  0001 C CNN
+F 2 "" H 700 2800 50  0001 C CNN
+F 3 "~" H 700 2800 50  0001 C CNN
+	1    700  2800
+	1    0    0    -1  
+$EndComp
+NoConn ~ 6900 3200
+NoConn ~ 6900 3300
+NoConn ~ 2350 2950
+Text Notes 1550 3100 0    50   ~ 0
+~WAIT~ should have\na pull-up - check\nthis.
+Wire Wire Line
+	6450 3400 6900 3400
 Wire Bus Line
 	1500 900  10450 900 
 Wire Bus Line
