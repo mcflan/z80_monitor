@@ -1916,7 +1916,7 @@ Text Label 800  2600 0    50   ~ 0
 Wire Wire Line
 	2150 2000 2300 2000
 Text HLabel 2400 1050 2    50   Output ~ 0
-~RAM_WR_EN~
+RAM_WR_EN
 Wire Wire Line
 	2300 2000 2300 1050
 Wire Wire Line
@@ -1931,6 +1931,34 @@ Wire Notes Line
 	8450 2950 8450 2600
 Wire Notes Line
 	8450 2600 8650 2600
+$Comp
+L power:+5V #PWR?
+U 1 1 5FA41785
+P 4900 6450
+F 0 "#PWR?" H 4900 6300 50  0001 C CNN
+F 1 "+5V" H 4915 6623 50  0000 C CNN
+F 2 "" H 4900 6450 50  0001 C CNN
+F 3 "" H 4900 6450 50  0001 C CNN
+	1    4900 6450
+	-1   0    0    -1  
+$EndComp
+Text HLabel 4900 6900 3    50   Input ~ 0
+~IORQ~
+$Comp
+L Device:R_Small R?
+U 1 1 5FA439DA
+P 4900 6650
+F 0 "R?" H 4959 6696 50  0000 L CNN
+F 1 "10K" H 4959 6605 50  0000 L CNN
+F 2 "" H 4900 6650 50  0001 C CNN
+F 3 "~" H 4900 6650 50  0001 C CNN
+	1    4900 6650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 6750 4900 6900
+Wire Wire Line
+	4900 6550 4900 6450
 Wire Bus Line
 	6700 850  6700 4700
 Wire Bus Line

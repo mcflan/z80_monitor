@@ -48,7 +48,7 @@ Inter-Board connector, from top
 
 | Number from Top | Function | Comment |
 | --------------- | -------- | ------- |
-|  1 | ?       | Could be a write enable for RAM |
+|  1 | RAM_WR_EN | Write enable for battery-backed SRAM |
 |  2 | /RESET  |
 |  3 | /IORQ   |
 |  4 | /WR     |
