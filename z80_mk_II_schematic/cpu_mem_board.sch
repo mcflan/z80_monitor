@@ -1740,6 +1740,17 @@ F 3 "" H 3400 5900 50  0001 C CNN
 	1    3400 5900
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:CP_Small C2
+U 1 1 60593521
+P 3400 6000
+F 0 "C2" V 3150 5950 50  0000 L CNN
+F 1 "100u" V 3250 5900 50  0000 L CNN
+F 2 "" H 3400 6000 50  0001 C CNN
+F 3 "~" H 3400 6000 50  0001 C CNN
+	1    3400 6000
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	1500 900  10450 900 
 Wire Bus Line
@@ -1764,15 +1775,4 @@ Wire Bus Line
 	1200 800  1200 2500
 Wire Bus Line
 	4050 800  4050 3150
-$Comp
-L Device:CP_Small C2
-U 1 1 60593521
-P 3400 6000
-F 0 "C2" V 3150 5950 50  0000 L CNN
-F 1 "100u" V 3250 5900 50  0000 L CNN
-F 2 "" H 3400 6000 50  0001 C CNN
-F 3 "~" H 3400 6000 50  0001 C CNN
-	1    3400 6000
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC

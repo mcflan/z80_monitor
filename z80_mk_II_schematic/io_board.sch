@@ -1750,6 +1750,17 @@ F 3 "" H 5400 6450 50  0001 C CNN
 	1    5400 6450
 	-1   0    0    -1  
 $EndComp
+$Comp
+L 74xx:74LS00 U12
+U 5 1 61049467
+P 5400 6950
+F 0 "U12" H 5300 7000 50  0000 L CNN
+F 1 "74LS00" H 5250 6900 50  0000 L CNN
+F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 5400 6950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 5400 6950 50  0001 C CNN
+	5    5400 6950
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	6700 850  6700 4700
 Wire Bus Line
@@ -1780,15 +1791,4 @@ Wire Bus Line
 	1300 6350 1300 7350
 Wire Bus Line
 	700  650  700  5700
-$Comp
-L 74xx:74LS00 U12
-U 5 1 61049467
-P 5400 6950
-F 0 "U12" H 5300 7000 50  0000 L CNN
-F 1 "74LS00" H 5250 6900 50  0000 L CNN
-F 2 "Housings_DIP:DIP-14_W7.62mm_Socket" H 5400 6950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 5400 6950 50  0001 C CNN
-	5    5400 6950
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC
