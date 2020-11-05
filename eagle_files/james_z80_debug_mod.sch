@@ -19562,13 +19562,14 @@ or EPROM emulator board</text>
 <label x="294.64" y="-154.94" size="1.27" layer="95"/>
 </segment>
 </net>
-<net name="N$4" class="0">
+<net name="!Y_IORQ" class="0">
 <segment>
 <pinref part="IC10" gate="A" pin="4Q"/>
-<wire x1="254" y1="-68.58" x2="266.7" y2="-68.58" width="0.1524" layer="91"/>
-<wire x1="266.7" y1="-68.58" x2="266.7" y2="-210.82" width="0.1524" layer="91"/>
+<wire x1="254" y1="-68.58" x2="264.16" y2="-68.58" width="0.1524" layer="91"/>
+<wire x1="264.16" y1="-68.58" x2="264.16" y2="-210.82" width="0.1524" layer="91"/>
 <pinref part="IC7" gate="B" pin="I"/>
-<wire x1="266.7" y1="-210.82" x2="279.4" y2="-210.82" width="0.1524" layer="91"/>
+<wire x1="264.16" y1="-210.82" x2="279.4" y2="-210.82" width="0.1524" layer="91"/>
+<label x="256.54" y="-68.58" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="!IORQ" class="0">
