@@ -39,6 +39,7 @@ extern volatile uint8_t led_flash_rate;
 void timer_init(uint16_t reload);
 
 void timer_start(uint8_t st_num, uint8_t mode, uint16_t interval);
+void timer_start2(uint8_t st_num, uint8_t mode, uint16_t interval);
 void timer_stop(uint8_t st_num);
 void timer_assign_fn(uint8_t st_num, timer_fn_t *fn, void *data);
 uint8_t timer_poll(uint8_t st_num);

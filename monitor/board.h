@@ -37,6 +37,12 @@
 #define REG_ADDR_L                  (2)
 #define REG_ADDR_H                  (3)
 
+// Control register bits
+#define CTRL_EPROM_EN               (1 << 0)
+#define CTRL_PROG_EN                (1 << 1)
+#define CTRL_MREQ                   (1 << 2)
+#define CTRL_IORQ                   (1 << 3)
+
 
 /* ADC - Vref is set by an external reference as of PCB Rev.4 */
 #define VREF                        (2.500)

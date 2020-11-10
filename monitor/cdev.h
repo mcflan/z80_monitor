@@ -1,6 +1,8 @@
 #ifndef CDEV_H
 #define CDEV_H
 
+#include <stdint.h>
+
 /*
  * Character device buffered asynchronous i/o module.
  *

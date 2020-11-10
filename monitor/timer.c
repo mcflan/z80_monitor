@@ -95,6 +95,21 @@ void timer_start(uint8_t st_num, uint8_t mode, uint16_t interval)
     sei(); /* turn on ints */
 }
 
+// As above, but don't reset timer itself if in CLOCK mode.
+// Useful when polling on clock type timers.
+void timer_start2(uint8_t st_num, uint8_t mode, uint16_t interval)
+{
+    cli(); /* turn off ints */
+    softtimers[st_num].reload = interval;
+    if (mode == TIMER_MODE_ONESHOT) {
+        timer_st[st_num] = interval;
+    }
+    timer_status &= ~(1 << st_num);
+    timer_ctrl &= ~(3 << (st_num*2));
+    timer_ctrl |= (mode & 3) << (st_num*2);
+    sei(); /* turn on ints */
+}
+
 void timer_stop(uint8_t st_num)
 {
     /* should be atomic, no need to turn off ints */

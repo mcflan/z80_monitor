@@ -9,6 +9,6 @@
  * means wait for ever. This is just the sleep/poll bit, the caller
  * needs to actually fetch the data.
  */
-uint8_t poll(uint8_t cdev_mask, int timeout);
+uint8_t poll(uint8_t cdev_mask, int timeout, uint8_t timer_mode);
 
 #endif // POLL_H
