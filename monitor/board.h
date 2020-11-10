@@ -19,7 +19,7 @@
 
 
 /* soft timer designations */
-//#define ST_UART                     (0)
+#define ST_UART                     (0)
 #define ST_WAIT                     (1)
 #define ST_LED                      (2)
 #define ST_FIX                      (3)

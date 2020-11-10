@@ -16,6 +16,7 @@
 #include "timer.h"
 #include "debug.h"
 #include "hexify.h"
+#include "poll.h"
 
 #include <util/delay.h>
 #include <avr/io.h>
@@ -30,20 +31,11 @@
 #endif
 
 /* Version message */
-#define VERSION_MSG  "\n\n\n# BBC Monitor Firmware " GIT_VERSION " " GIT_DATE " Build " __DATE__ " " __TIME__ "\n\n"
+#define VERSION_MSG  "# Firmware git hash " GIT_VERSION " " GIT_DATE " Build " __DATE__ " " __TIME__ "\n\n\r"
 
 #ifdef DEBUG
     uint8_t debug_lvl = 1;
 #endif
-
-
-static void idle(void)
-{
-    set_sleep_mode(SLEEP_MODE_IDLE);
-    sleep_enable();
-    sleep_cpu();
-    sleep_disable();
-}
 
 
 /*
@@ -62,6 +54,7 @@ static inline void set_reg_addr(uint8_t x)
 {
     PORTC &= ~0x03;
     PORTC |= x & 0x03;
+    _NOP(); _NOP(); _NOP(); _NOP();
 }
 
 static inline void write(uint8_t x)
@@ -79,7 +72,6 @@ static inline void write(uint8_t x)
 static inline void write_reg(uint8_t reg_addr, uint8_t x)
 {
     set_reg_addr(reg_addr);
-    _NOP();
     write(x);
 }
 
@@ -131,7 +123,7 @@ static inline void write_block(uint16_t addr, uint8_t *data, int size)
 
 static const char hexchars[] = "0123456789ABCDEF";
 
-void dump(uint16_t start)
+void view(uint16_t start)
 {
 
     cdev_put(EXT_CDEV, hexchars[(start >> 12) & 0xf]);
@@ -169,33 +161,57 @@ void code(void)
 void code2(void)
 {
     uint16_t addr = 0;
-    write_address(addr++); write_data(0xf3); // Disable INT
-    write_address(addr++); write_data(0x21); // LD HL,0x0000
-    write_address(addr++); write_data(0x00);
-    write_address(addr++); write_data(0x00);
-    write_address(addr++); write_data(0x22); // LD (0x000e), HL
-    write_address(addr++); write_data(0x0e);
-    write_address(addr++); write_data(0x00);
-    write_address(addr++); write_data(0x23); // INC HL
-    write_address(addr++); write_data(0x18); // JUMP -6
-    write_address(addr++); write_data(0xFA);
-    write_address(addr++); write_data(0x00); // NOP
-    write_address(addr++); write_data(0x00); // NOP
-    write_address(addr++); write_data(0x00); // NOP
-    write_address(addr++); write_data(0x78); // HALT
+    write_address(addr++); write_data(0xf3); // 0x00    Disable INT
+    write_address(addr++); write_data(0x18); //         JUMP +3
+    write_address(addr++); write_data(0x03); //
+    write_address(addr++); write_data(0x00); //         NOP                 ; We put counter here
+    write_address(addr++); write_data(0x00); //         NOP
+    write_address(addr++); write_data(0x00); //         NOP
+    write_address(addr++); write_data(0x3e); //         LD A, 0x0f
+    write_address(addr++); write_data(0x0f); //
+    write_address(addr++); write_data(0xd3); //         OUT (0x01),A        ; Write control to PA 
+    write_address(addr++); write_data(0x01); //
+    write_address(addr++); write_data(0x21); //         LD HL,0x0000
+    write_address(addr++); write_data(0x00); //
+    write_address(addr++); write_data(0x00); //
+    write_address(addr++); write_data(0x22); //         LD (0x0002), HL
+    write_address(addr++); write_data(0x02); //
+    write_address(addr++); write_data(0x00); //
+    write_address(addr++); write_data(0x23); //         INC HL
+    write_address(addr++); write_data(0x7d); //         LD A,L
+    write_address(addr++); write_data(0xd3); //         OUT (0x00),A        ; Write data to PA
+    write_address(addr++); write_data(0x00); //
+    write_address(addr++); write_data(0x18); //         JUMP -9
+    write_address(addr++); write_data(-9);   //
+    write_address(addr++); write_data(0x00); //         NOP
+    write_address(addr++); write_data(0x00); //         NOP
+    write_address(addr++); write_data(0x78); //         HALT
 }
 
-void main_loop(void)
+static void main_loop(void)
 {
-    write_control(0xfb); // Assert /MREQ
-    claim_bus();
-    _delay_us(1);
-    code2();
+    uint8_t cdevs = (1 << EXT_CDEV);
+    uint8_t cdevs_readable;
+
+    //claim_bus();
+    //_delay_us(1);
+    //code2();
     while (1) {
-        release_bus();
-        wait(0.01);
-        claim_bus();
-        dump(0x0000);
+        // Sleep for 100ms or until data arrives on UART
+        cdevs_readable = poll(cdevs, 1000);
+        if (cdevs_readable & (1 << EXT_CDEV)) {
+            char c = cdev_get(EXT_CDEV);
+
+            // Echo characters
+            cdev_put(EXT_CDEV, c);
+            //printf("0x%02X\n\r", c);
+        }
+
+        //release_bus();
+        //wait(0.01);
+        //claim_bus();
+        //write_control(0xfb); // Assert /MREQ
+        //dump(0x0000);
     }
 }
 
@@ -235,6 +251,10 @@ int main(void)
     uart0_init(EXT_CDEV, 8); /* 115200 baud */
     stdout = &uart0_fp;
 
+    cdev_put(EXT_CDEV, '\n');
+    cdev_put(EXT_CDEV, '\n');
+    cdev_put(EXT_CDEV, '\r');
+    PRINT("MCU Monitor. J.Macfarlane 2020\n\r");
     PRINT(VERSION_MSG);
 
     //hexify_recvr_init(&decoder, (uint8_t *)&rx_msg, XBEE_MSG_LEN);

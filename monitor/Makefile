@@ -44,7 +44,7 @@ reset:
 fuses:
 	avrdude -v -p $(AVRDUDE_CPU) -B9 -P usb  -c $(PROGRAMMER) -U lfuse:w:0xFF:m -U hfuse:w:0xDF:m -U efuse:w:0xff:m
  
-monitor.obj: monitor.o uart.o cdev.o timer.o hexify.o
+monitor.obj: monitor.o uart.o cdev.o timer.o hexify.o poll.o
 
 
 %.lst : %.obj
