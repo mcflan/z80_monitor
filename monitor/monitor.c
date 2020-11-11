@@ -393,7 +393,9 @@ void do_ihex_record(mon_t *mon)
 {
     //printf("\rIntel Hex record type %d, count %d, address 0x%04X\n", mon->ihex->type, mon->ihex->count, mon->ihex->addr);
     if (mon->ihex->type == 0) {
+        claim_bus();
         write_block(mon->ihex->addr, mon->ihex->data_buf, mon->ihex->count);
+        if (!mon->bus_claimed) release_bus();
     }
 }
 
