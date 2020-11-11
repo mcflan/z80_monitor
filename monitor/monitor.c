@@ -4,21 +4,10 @@
  * (C) Copyright James L Macfarlane, Airborne Engineering Ltd 2020.
  */
 
+#include "board.h"
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdio.h>
-#include <math.h>
-
-#include "board.h"
-#include "uart.h"
-#include "timer.h"
-#include "debug.h"
-#include "hexify.h"
-#include "poll.h"
-
 #include <util/delay.h>
 #include <avr/io.h>
 #include <avr/sleep.h>
@@ -27,12 +16,25 @@
 #include <avr/sleep.h>
 #include <avr/cpufunc.h>
 
-#ifdef TESTMODE 
-#warning "***************** THIS BUILD IS IN TEST MODE ********************"
-#endif
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <math.h>
 
+#include "uart.h"
+#include "timer.h"
+#include "debug.h"
+#include "hexify.h"
+#include "poll.h"
+
+
+#if defined(GIT_VERSION) && defined(GIT_DATE)
 /* Version message */
-#define VERSION_MSG  "# Firmware git hash " GIT_VERSION " " GIT_DATE " Build " __DATE__ " " __TIME__ "\n\n\r"
+    #define VERSION_MSG  "# Firmware git hash " GIT_VERSION " " GIT_DATE " Build " __DATE__ " " __TIME__ "\n\n\r"
+#else
+    #error "GIT_VERSION and/or GIT_DATE not defined."
+#endif
 
 #ifdef DEBUG
     uint8_t debug_lvl = 1;
@@ -42,7 +44,7 @@
 /*
  * Sleep a number of seconds using interrupt-driven timer.
  */
-static void wait(float t)
+void wait(float t)
 {
     timer_start(ST_WAIT, TIMER_MODE_ONESHOT, RATE(t));
     timer_sleep(ST_WAIT);
@@ -399,6 +401,18 @@ void do_ihex_record(mon_t *mon)
     }
 }
 
+void do_ihex_char(mon_t *mon, char c)
+{
+    int ret = ihex_char(mon->ihex, c);
+    if (ret != 0) {
+        mon->cmd = 0;
+    }
+    if (ret > 0 ) {
+        do_ihex_record(mon);
+    }
+
+}
+
 void cmd_line(mon_t *mon, char c)
 {
 
@@ -428,16 +442,7 @@ void cmd_line(mon_t *mon, char c)
     } else {
         // All the functions below will reset mon->cmd to 0 when done.
         switch (mon->cmd) {
-            case ':': {
-                int ret = ihex_char(mon->ihex, c);
-                if (ret != 0) {
-                    mon->cmd = 0;
-                }
-                if (ret > 0 ) {
-                    do_ihex_record(mon);
-                }
-                break;
-            }
+            case ':': do_ihex_char(mon, c); break;
         }
     }
     update_hardware(mon);
@@ -486,7 +491,7 @@ static void main_loop(mon_t *mon)
             char c = cdev_get(EXT_CDEV);
 
             // Echo characters
-            cdev_put(EXT_CDEV, c);
+            //cdev_put(EXT_CDEV, c);
             //printf("<0x%02X>\n\r", c);
             cmd_line(mon, c);
         }
