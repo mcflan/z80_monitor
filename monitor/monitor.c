@@ -198,7 +198,7 @@ void view(uint8_t cdev, uint16_t start, uint16_t count, uint16_t cursor)
     }
 }
 
-#define MON_MAX_COUNT_STR_LEN   (8)
+#define MON_BUF_MAX_STRLEN   (8)
 
 #define IHEX_MAX_DATA           (32)
 #define IHEX_MAX_DIGITS         (4)
@@ -297,10 +297,11 @@ int ihex_char(ihex_t *ihex, char c)
             ihex->state = IHEX_COUNT;
             ihex->digits_required = 2;
             ihex->digit_ptr = 0;
+            ihex->chksum = 0;
         }
     } else if (ihex->state > IHEX_START && ihex->state < IHEX_END) {
         if (!isxdigit(c)) {
-            printf("Intel hex parse error. Got non-hex digit 0x%02X\r\n", c);
+            printf("Intel hex parse error. Got non-hex digit 0x%02X.\r\n", c);
             ihex->state = IHEX_ERR;
             return -1;
         }
@@ -311,7 +312,7 @@ int ihex_char(ihex_t *ihex, char c)
             // This shouldn't fail, due to preceding checks.
             uint16_t value = strtol(ihex->digit_buf, &endptr, 16);
             if (endptr == ihex->digit_buf) {
-                printf("Intel hex parse error for string %s'\r\n", ihex->digit_buf);
+                printf("Intel hex parse error for string \"%s\".\r\n", ihex->digit_buf);
                 ihex->state = IHEX_ERR;
                 return -1;
             }
@@ -320,13 +321,15 @@ int ihex_char(ihex_t *ihex, char c)
         }
     } else if (ihex->state == IHEX_END) {
         if (c != '\r' && c != '\n') {
-            printf("Intel hex parse error. Expected \\n, got \'%c\'\r\n", c);
+            printf("Intel hex parse error. Expected \\n, got \'%c\'.\r\n", c);
             ihex->state = IHEX_ERR;
             return -1;
         }
         ihex->state = IHEX_DONE;
         return 1; // Indicate to caller that we have a valid ihex record.
 
+    } else if (ihex->state == IHEX_ERR) {
+        return -1;
     } else {
         printf("Intel hex parser started in invalid state.\r\n");
         ihex->state = IHEX_ERR;
@@ -343,39 +346,39 @@ typedef struct mon_s {
     uint8_t mem_type;
     int cmd;
     int count;
-    char count_str[MON_MAX_COUNT_STR_LEN+1];
-    int count_str_ptr;
+    char input_buf[MON_BUF_MAX_STRLEN+1];
+    int buf_ptr;
     ihex_t *ihex;
 } mon_t;
 
 void mon_do_count_char(mon_t *mon, char c)
 {
     if (isdigit(c)) {
-        if (mon->count_str_ptr >= MON_MAX_COUNT_STR_LEN) {
+        if (mon->buf_ptr >= MON_BUF_MAX_STRLEN) {
             mon->count = 1;
             printf("Error: count too large\n");
             return;
         }
         // Append to count string
-        mon->count_str[mon->count_str_ptr++] = c;
+        mon->input_buf[mon->buf_ptr++] = c;
     } else {
         // If we haven't started a count, then default to 1 and bail
         // (this will happen if user doesn't include a count at all.)
-        if (mon->count_str_ptr == 0) {
+        if (mon->buf_ptr == 0) {
             mon->count = 1;
             return;
         }
         // Convert count string to int
-        mon->count_str[mon->count_str_ptr] = 0;
+        mon->input_buf[mon->buf_ptr] = 0;
         char *endptr;
-        mon->count = strtol(mon->count_str, &endptr, 10);
+        mon->count = strtol(mon->input_buf, &endptr, 10);
         // Default to count of 1 if we can't parse count string
-        if (endptr == mon->count_str) {
+        if (endptr == mon->input_buf) {
             mon->count = 1;
-            printf("Error: can't parse count %s as a decimal number\n", mon->count_str);
+            printf("Error: can't parse count %s as a decimal number\n", mon->input_buf);
         }
         // Reset count ptr ready for next count.
-        mon->count_str_ptr = 0;
+        mon->buf_ptr = 0;
     }
 }
 
@@ -393,7 +396,7 @@ void update_hardware(mon_t *mon)
 
 void do_ihex_record(mon_t *mon)
 {
-    //printf("\rIntel Hex record type %d, count %d, address 0x%04X\n", mon->ihex->type, mon->ihex->count, mon->ihex->addr);
+    printf("\rIHex rec type %d, len %2d, addr 0x%04X\n\r", mon->ihex->type, mon->ihex->count, mon->ihex->addr);
     if (mon->ihex->type == 0) {
         claim_bus();
         write_block(mon->ihex->addr, mon->ihex->data_buf, mon->ihex->count);
@@ -405,12 +408,28 @@ void do_ihex_char(mon_t *mon, char c)
 {
     int ret = ihex_char(mon->ihex, c);
     if (ret != 0) {
-        mon->cmd = 0;
+        // An error occurred. Reset only once we get a CR
+        if (c == '\r') 
+            mon->cmd = 0;
     }
     if (ret > 0 ) {
         do_ihex_record(mon);
     }
 
+}
+
+void do_hex_input(mon_t *mon, char c)
+{
+    // FIXME: work in progress
+    if (c == 'x') {
+        mon->buf_ptr = 0;
+    } else if (c != '\r') {
+        if (!isxdigit(c)) {
+            mon->cmd = 0;
+        }
+    } else {
+        mon->cmd = 0;
+    }
 }
 
 void cmd_line(mon_t *mon, char c)
@@ -421,6 +440,7 @@ void cmd_line(mon_t *mon, char c)
         // Not all cmds will take notice of the count.
         mon_do_count_char(mon, c);
         switch (c) {
+            case 'c': clear_screen(EXT_CDEV); break;
             case 'l': mon->addr++; break;
             case 'h': mon->addr--; break;
             case 'k': mon->addr-=16; break;
@@ -456,7 +476,7 @@ void mon_init(mon_t *mon)
     mon->bus_claimed = 0;
     mon->view_on = 1;
     mon->mem_type = 0; // Default to main memory
-    mon->count_str_ptr = 0;
+    mon->buf_ptr = 0;
     mon->ihex = &ihex;
     ihex_init(mon->ihex);
 }
