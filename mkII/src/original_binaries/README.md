@@ -7,7 +7,7 @@ the SRAM of the board. Most of them should start at 0x0000 in memory, though
 there might be some relocatable snippets.
 
 |  File     |  Description          |
-|:=========:|:=====================:|
+|:---------:|:---------------------:|
 | Z.DISPLAY |     |
 | Z.DIVIDE  |     |
 | Z.IN.UART |     |
