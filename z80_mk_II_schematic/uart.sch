@@ -930,6 +930,8 @@ Connection ~ 3350 3450
 Wire Wire Line
 	3350 3450 3350 3550
 NoConn ~ 3650 4300
+Text Notes 3700 4350 0    40   ~ 0
+This should not be\nfloating
 Wire Bus Line
 	2050 1900 6400 1900
 Wire Bus Line
@@ -938,6 +940,4 @@ Wire Bus Line
 	4600 2000 4600 3300
 Wire Bus Line
 	6500 2000 6500 4300
-Text Notes 3700 4350 0    40   ~ 0
-This should not be\nfloating
 $EndSCHEMATC
