@@ -9,19 +9,19 @@ there might be some relocatable snippets.
 |  File     |  Description          |
 |:=========:|:=====================:|
 | Z.DISPLAY |     |
-| Z.DIVIDE |     |
+| Z.DIVIDE  |     |
 | Z.IN.UART |     |
-| Z.INIT |     |
+| Z.INIT    |     |
 | Z.IO.KEYB |     |
-| Z.IO.PIO |     |
+| Z.IO.PIO  |     |
 | Z.IO.UART |     |
-| Z.KEYB |     |
+| Z.KEYB    |     |
 | Z.KEYB.BK |     |
-| Z.KEYB1 |     |
-| Z.KEYB2 |     |
-| Z.KEYB3 |     |
-| Z.KTABLE |     |
-| Z.M3.ADC |     |
+| Z.KEYB1   |     |
+| Z.KEYB2   |     |
+| Z.KEYB3   |     |
+| Z.KTABLE  |     |
+| Z.M3.ADC  |     |
 | Z.M3.SHFT |     |
-| Z.MULTI |     |
+| Z.MULTI   |     |
 | Z.STARTER |     |

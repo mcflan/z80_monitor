@@ -7,6 +7,5 @@ some very old BBC micro floppy disks.
 The state of the project when I left it in 1991 and moved on to the MkIII
 (flight computer for the Aspire 1 rocket) was that I'd written enough code to
 test the main peripherals - keyboard, screen, UART - and so to test all the
-hardware. I never got as far as producing any applications or really doing much
-integration.
+hardware. I never got as far as producing any applications.
 
