@@ -8,7 +8,7 @@ there might be some relocatable snippets.
 
 |  File     |  Description          |
 |:=========:|:=====================:|
-| Z.DISPLAY |     |
+| Z.DISPLAY |                       |
 | Z.DIVIDE  |     |
 | Z.IN.UART |     |
 | Z.INIT    |     |
