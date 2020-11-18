@@ -382,7 +382,7 @@ Wire Wire Line
 Wire Wire Line
 	3750 2450 4100 2450
 Text Label 3800 2450 0    50   ~ 0
-PI_WE
+PI_WR_EN
 Wire Wire Line
 	3750 2750 4100 2750
 Text Label 3800 2750 0    50   ~ 0
@@ -1080,4 +1080,41 @@ F 3 "~" H 5250 2250 50  0001 C CNN
 	1    5250 2250
 	0    1    1    0   
 $EndComp
+$Comp
+L Device:C_Small C4
+U 1 1 6009941D
+P 3900 6300
+F 0 "C4" H 3808 6254 50  0000 R CNN
+F 1 "0u1" H 3808 6345 50  0000 R CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D3.4mm_W2.1mm_P2.50mm" H 3900 6300 50  0001 C CNN
+F 3 "~" H 3900 6300 50  0001 C CNN
+	1    3900 6300
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR016
+U 1 1 600A5F2C
+P 3900 6850
+F 0 "#PWR016" H 3900 6600 50  0001 C CNN
+F 1 "GND" H 3905 6677 50  0000 C CNN
+F 2 "" H 3900 6850 50  0001 C CNN
+F 3 "" H 3900 6850 50  0001 C CNN
+	1    3900 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 6850 3900 6400
+$Comp
+L power:+3V3 #PWR015
+U 1 1 600C02BF
+P 3900 5600
+F 0 "#PWR015" H 3900 5450 50  0001 C CNN
+F 1 "+3V3" H 3915 5773 50  0000 C CNN
+F 2 "" H 3900 5600 50  0001 C CNN
+F 3 "" H 3900 5600 50  0001 C CNN
+	1    3900 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 5600 3900 6200
 $EndSCHEMATC
