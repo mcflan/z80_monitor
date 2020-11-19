@@ -39,8 +39,9 @@ g1 y[#2 - #4 - #5]                          (cut LHS)
 o101 endsub
 
 G40 (Cutter Comp off)
-G10 L1 P1 R5.0 Z-108 (Set radius for tool 1, 10mm end-cutting)
-G10 L1 P2 R3.0 Z-85 (Set radius for tool 1, 6mm ball-nose)
+G10 L1 P1 R5.0 Z-108    (10mm end-cutting)
+G10 L1 P2 R3.0 Z-85     (6mm ball-nose)
+G10 L1 P3 R5.0 Z-85     (chamfer cutter)
 T1 M6 (Load tool 1)
 
 f200
@@ -104,14 +105,28 @@ g1 x-35 y-14 (move off)
 g0 z40 (safe Z)
 g0 x-60 y-30
 
-g0 x-150
-
-T2 M6 (Load tool 2)
+g0 x-150 (move clear  of workpiece)
+T2 M6 (Load 6mm ball-nose tool)
 
 g0 x-60 y-30
 g0 z14
 
 ( Cut radius around bottom of boss )
 o101 call [0] [0] [34.2] [10.2] [6]
+g0 z40
+g0 x-60 y-30
+
+g0 x-150 (move clear  of workpiece)
+
+T3 M6 (Load chamfer tool
+g0 x-60 y-30
+g0 z14
+(g42) (compensation on)
+(cut 0.7 mm in from outline dims to give 1mm chamfer)
+o100 call [0] [0] [40-1.4] [16-1.4] [5-0.7]
+g1 x-35 y-14 (move off)
+g0 z40 (safe Z)
+g0 x-60 y-30
+
 
 m2
