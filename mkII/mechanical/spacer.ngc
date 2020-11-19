@@ -39,6 +39,7 @@ g1 y[#2 - #4 - #5]                          (cut LHS)
 o101 endsub
 
 G40 (Cutter Comp off)
+
 G10 L1 P1 R5.0 Z-35.66    (10mm end-cutting)
 G10 L1 P2 R3.0 Z-18.86     (6mm ball-nose)
 G10 L1 P3 R5.0 Z-55.16     (chamfer cutter)
@@ -47,12 +48,9 @@ T1 M6 (Load tool 1)
 f200
 (Mill top surface flat.)
 g0 z40 (safe Z)
-g0 x100 y50 (home position top right, clear of workpiece.)
-g40 (compensation off)
 #9=10
-( home bottom left )
-g0 z40
-g0 x-60 y-30
+g40 (compensation off)
+g0 x-70 y-30 (home bottom left)
 g0 z35
 ( Mill top flat)
 o101 call [0] [0] [96] [20] [#9]
@@ -61,7 +59,7 @@ o101 call [0] [0] [64] [10] [#9]
 o101 call [0] [0] [64] [8] [0]
 
 g0 z40
-g0 x-60 y-30
+g0 x-70 y-30 (home bottom left)
 g0 z35
 ( work inwards to remove all material around centre boss )
 o101 call [0] [0] [96] [10.4] [#9]
@@ -70,7 +68,7 @@ o101 call [0] [0] [64] [10.4] [#9]
 o101 call [0] [0] [32] [10.4] [#9]
 o101 call [0] [0] [30] [10.2] [#9]
 g0 z40
-g0 x-60 y-30
+g0 x-70 y-30 (home bottom left)
 g0 z17
 (remove material down to top of radius )
 o101 call [0] [0] [96] [10.4] [#9]
@@ -79,7 +77,7 @@ o101 call [0] [0] [64] [10.4] [#9]
 o101 call [0] [0] [34.2] [10.2] [#9]
 o101 call [0] [0] [34] [10] [#9]
 g0 z40
-g0 x-60 y-30
+g0 x-70 y-30 (home bottom left)
 g0 z14
 (remove material down to top of foot )
 o101 call [0] [0] [96] [16.4] [#9]
@@ -88,45 +86,47 @@ o101 call [0] [0] [64] [16.4] [#9]
 o101 call [0] [0] [40.2] [16.4] [#9]
 o101 call [0] [0] [40] [16.2] [#9]
 g0 z40
-g0 x-60 y-30
-g0 z-4
+g0 x-70 y-30 (home bottom left)
+g0 z-3
 (rough-out before cutting final outline )
 o101 call [0] [0] [96] [16.4] [#9]
 o101 call [0] [0] [80.4] [16.4] [#9]
 g0 z40
-g0 x-60 y-30
-g0 z-4
+g0 x-70 y-30 (home bottom left)
+g0 z-3
 
 (final outline of foot with radiused corners)
 f200
-(g42) (compensation on)
+g42 (compensation on)
 o100 call [0] [0] [40] [16] [5]
-g1 x-35 y-14 (move off)
+g1 x-15 y-15 (move off)
 g0 z40 (safe Z)
-g0 x-60 y-30
+g40 (compensation off)
+g0 x-70 y-30 (home bottom left)
 
 g0 x-150 (move clear  of workpiece)
 T2 M6 (Load 6mm ball-nose tool)
 
-g0 x-60 y-30
+g0 x-70 y-30 (home bottom left)
 g0 z14
 
 ( Cut radius around bottom of boss )
 o101 call [0] [0] [34.2] [10.2] [6]
 g0 z40
-g0 x-60 y-30
+g0 x-70 y-30 (home bottom left)
 
 g0 x-150 (move clear  of workpiece)
 
 T3 M6 (Load chamfer tool)
-g0 x-60 y-30
+g0 x-70 y-30 (home bottom left)
 g0 z14
-(g42) (compensation on)
+g42 (compensation on)
 (cut 0.7 mm in from outline dims to give 1mm chamfer)
 o100 call [0] [0] [40-1.4] [16-1.4] [5-0.7]
-g1 x-35 y-14 (move off)
+g1 x-15 y-15 (move off)
 g0 z40 (safe Z)
-g0 x-60 y-30
+g40 (compensation off)
+g0 x-70 y-30 (home bottom left)
 
 
 m2
