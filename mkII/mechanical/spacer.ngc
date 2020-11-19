@@ -39,9 +39,9 @@ g1 y[#2 - #4 - #5]                          (cut LHS)
 o101 endsub
 
 G40 (Cutter Comp off)
-G10 L1 P1 R5.0 Z-108    (10mm end-cutting)
-G10 L1 P2 R3.0 Z-85     (6mm ball-nose)
-G10 L1 P3 R5.0 Z-85     (chamfer cutter)
+G10 L1 P1 R5.0 Z-35.66    (10mm end-cutting)
+G10 L1 P2 R3.0 Z-18.86     (6mm ball-nose)
+G10 L1 P3 R5.0 Z-55.16     (chamfer cutter)
 T1 M6 (Load tool 1)
 
 f200
@@ -118,7 +118,7 @@ g0 x-60 y-30
 
 g0 x-150 (move clear  of workpiece)
 
-T3 M6 (Load chamfer tool
+T3 M6 (Load chamfer tool)
 g0 x-60 y-30
 g0 z14
 (g42) (compensation on)
