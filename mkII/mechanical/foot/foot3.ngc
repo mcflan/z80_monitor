@@ -30,7 +30,7 @@ G17 ; XY plane
 G54 ; Coordinate System 1
 G90 ; Absolute
 G21 ; Millimetres
-G43 ; Cancel cutter radius comp
+G40 ; Cancel cutter radius comp
 G49 ; Cancel tool length comp
 
 #<safe_Z> = 60
