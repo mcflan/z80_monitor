@@ -78,19 +78,38 @@ o1021 while [#10 GT #8]
 g0 z[#9] (move to safe Z pos)
 o102 endsub
 
+; *****************************************************************************
+;   Main Code
+; *****************************************************************************
 
-G40 (Cutter Comp off)
+; Preamble
+G80 ; Cancel any canned cycle
+G17 ; XY plane
+G54 ; Coordinate System 1
+G90 ; Absolute
+G21 ; Millimetres
+
 
 G10 L1 P1 R5.0 Z-35.66    (10mm end-cutting)
 G10 L1 P2 R3.0 Z-18.86     (6mm ball-nose)
 G10 L1 P3 R5.0 Z-55.16     (chamfer cutter)
+G43 ; Cancel cutter radius comp
+G49 ; Cancel tool length comp
+
+#<safe_Z> = 60
+#<safe_Z_uncomp> = 100
+
 T1 M6 (Load tool 1)
+g43 (tool length offet on)
+g0 z[#<safe_Z>] (safe Z)
+g0 x-70 y-30 (home bottom left)
 
 f200
-g0 z40 (safe Z)
+g0 z[#<safe_Z>] (safe Z)
 #9=5 ( placeholder for cutter radius)
 g40 (compensation off)
 g0 x-70 y-30 (home bottom left)
+
 
 ( Mill top flat)
 f200
@@ -108,7 +127,7 @@ o102 call [[50+17.2]/2] [0] [50-17.2] [24] [#9] [23] [1] [17] [40]
 o102 call [-[50+20.2]/2] [0] [50-20.2] [24] [#9] [17] [1] [14] [40]
 o102 call [[50+20.2]/2] [0] [50-20.2] [24] [#9] [17] [1] [14] [40]
 
-g0 z40 (safe Z)
+g0 z[#<safe_Z>] (safe Z)
 g0 x-70 y-30 (home bottom left)
 
 f200
@@ -123,7 +142,7 @@ f200
 o101 call [0] [0] [30.2] [10.4] [#9]
 o101 call [0] [0] [30.0] [10.2] [#9]
 
-g0 z40
+g0 z[#<safe_Z>]
 g0 x-70 y-30 (home bottom left)
 
 g0 z20
@@ -134,7 +153,7 @@ f200
 f200
 o101 call [0] [0] [34.0] [10.0] [#9]
 
-g0 z40
+g0 z[#<safe_Z>]
 g0 x-70 y-30 (home bottom left)
 
 g0 z14
@@ -142,7 +161,7 @@ g0 z14
 o101 call [0] [0] [40.2] [16.4] [#9]
 o101 call [0] [0] [40.0] [16.2] [#9]
 
-g0 z40
+g0 z[#<safe_Z>]
 g0 x-70 y-30 (home bottom left)
 
 g0 z10
@@ -158,47 +177,27 @@ g1 z-3 f30
 f200
 o101 call [0] [0] [80.6] [16.4] [#9]
 
-g0 z40
+g0 z[#<safe_Z>]
 g0 x-70 y-30 (home bottom left)
 
 (final outline of foot with radiused corners)
 g0 z-3
 g42 (compensation on)
 o100 call [0] [0] [80.4] [16.4] [5]
-g0 z40 (safe Z)
+g0 z[#<safe_Z>] (safe Z)
 g40 (compensation off)
 g0 x-70 y-30 (home bottom left)
 
 g0 z-3
 g42 (compensation on)
 o100 call [0] [0] [80.0] [16.0] [5]
-g0 z40 (safe Z)
+g0 z[#<safe_Z>] (safe Z)
 g40 (compensation off)
 g0 x-70 y-30 (home bottom left)
 
 g0 x-150 (move clear  of workpiece)
-T2 M6 (Load 6mm ball-nose tool)
 
-g0 x-70 y-30 (home bottom left)
-
-g0 z14
-( Cut radius around bottom of boss )
-o101 call [0] [0] [34.2] [10.2] [6]
-o101 call [0] [0] [34.0] [10.0] [6]
-g0 z40
-g0 x-70 y-30 (home bottom left)
-
-g0 x-150 (move clear  of workpiece)
-
-T3 M6 (Load chamfer tool)
-g0 x-70 y-30 (home bottom left)
-g0 z14
-g42 (compensation on)
-(cut 0.7 mm in from outline dims to give 1mm chamfer)
-o100 call [0] [0] [80-1.4] [16-1.4] [5-0.7]
-g0 z40 (safe Z)
-g40 (compensation off)
-g0 x-70 y-30 (home bottom left)
-
+g49 (length compensation off)
+g0 z[#<safe_Z_uncomp>]
 
 m2
