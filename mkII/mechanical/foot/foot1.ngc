@@ -100,12 +100,12 @@ G49 ; Cancel tool length comp
 T1 M6 (Load tool 1)
 g43 (tool length offet on)
 g0 z[#<safe_Z>]
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 f200
 g0 z[#<safe_Z>]
 g40 (compensation off)
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 
 ( Mill top flat)
@@ -125,7 +125,7 @@ o102 call [-[50+20.2]/2] [0] [50-20.2] [24] [#<r_cutter>] [17] [1] [14] [40]
 o102 call [[50+20.2]/2] [0] [50-20.2] [24] [#<r_cutter>] [17] [1] [14] [40]
 
 g0 z[#<safe_Z>]
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 f200
 g0 z29
@@ -140,7 +140,7 @@ o101 call [0] [0] [30.2] [10.4] [#<r_cutter>]
 o101 call [0] [0] [30.0] [10.2] [#<r_cutter>]
 
 g0 z[#<safe_Z>]
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 g0 z20
 ( remove remaining material to top of radius )
@@ -151,7 +151,7 @@ f200
 o101 call [0] [0] [34.0] [10.0] [#<r_cutter>]
 
 g0 z[#<safe_Z>]
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 g0 z14
 ( remove remaining material to top of foot )
@@ -159,7 +159,7 @@ o101 call [0] [0] [40.2] [16.4] [#<r_cutter>]
 o101 call [0] [0] [40.0] [16.2] [#<r_cutter>]
 
 g0 z[#<safe_Z>]
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 g0 z10
 ( remove bulk of  material around foot )
@@ -175,7 +175,7 @@ f200
 o101 call [0] [0] [80.6] [16.4] [#<r_cutter>]
 
 g0 z[#<safe_Z>]
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 (final outline of foot with radiused corners)
 g0 z-3
@@ -183,14 +183,14 @@ g42 (compensation on)
 o100 call [0] [0] [80.4] [16.4] [5]
 g0 z[#<safe_Z>]
 g40 (compensation off)
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 g0 z-3
 g42 (compensation on)
 o100 call [0] [0] [80.0] [16.0] [5]
 g0 z[#<safe_Z>]
 g40 (compensation off)
-g0 x[#<safe_X] y[#<safe_Y>]
+g0 x[#<safe_X>] y[#<safe_Y>]
 
 g0 x-150 (move clear  of workpiece)
 
