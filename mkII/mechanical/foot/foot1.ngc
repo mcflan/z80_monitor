@@ -163,16 +163,16 @@ g0 x[#<safe_X>] y[#<safe_Y>]
 
 g0 z10
 ( remove bulk of  material around foot )
-o101 call [0] [0] [80.6] [16.4] [#<r_cutter>]
+o101 call [0] [0] [80.8] [16.8] [#<r_cutter>]
 g1 z6 f30
 f200
-o101 call [0] [0] [80.6] [16.4] [#<r_cutter>]
+o101 call [0] [0] [80.8] [16.8] [#<r_cutter>]
 g1 z1 f30
 f200
-o101 call [0] [0] [80.6] [16.4] [#<r_cutter>]
+o101 call [0] [0] [80.8] [16.8] [#<r_cutter>]
 g1 z-3 f30
 f200
-o101 call [0] [0] [80.6] [16.4] [#<r_cutter>]
+o101 call [0] [0] [80.8] [16.8] [#<r_cutter>]
 
 g0 z[#<safe_Z>]
 g0 x[#<safe_X>] y[#<safe_Y>]
@@ -180,7 +180,7 @@ g0 x[#<safe_X>] y[#<safe_Y>]
 (final outline of foot with radiused corners)
 g0 z-3
 g42 (compensation on)
-o100 call [0] [0] [80.4] [16.4] [5]
+o100 call [0] [0] [80.8] [16.8] [5]
 g0 z[#<safe_Z>]
 g40 (compensation off)
 g0 x[#<safe_X>] y[#<safe_Y>]
