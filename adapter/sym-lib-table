@@ -1,3 +1,3 @@
 (sym_lib_table
-  (lib (name jm_z80)(type Legacy)(uri /home/james/Projects/Comp/Z80/z80_mk_II_schematic/jm_Z80.lib)(options "")(descr ""))
+  (lib (name jm_z80)(type Legacy)(uri /home/james/Projects/Comp/Z80/mkII/schematic/jm_Z80.lib)(options "")(descr ""))
 )
