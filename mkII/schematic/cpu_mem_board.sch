@@ -1784,4 +1784,6 @@ Wire Bus Line
 	1200 800  1200 2500
 Wire Bus Line
 	4050 800  4050 3150
+Text Notes 5350 6200 0    50   ~ 0
+C5, Q1 and Q3 together make a really good (bad!)\nnoise /glitch detector!
 $EndSCHEMATC
