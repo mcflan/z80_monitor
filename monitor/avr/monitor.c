@@ -155,6 +155,12 @@ void update_hardware(mon_t *mon)
 
 }
 
+static void set_memtype(uint8_t memtype)
+{
+    if (memtype == 0) write_control(~CTRL_MREQ);
+    if (memtype == 1) write_control(~CTRL_IORQ);
+}
+
 void mon_init(mon_t *mon)
 {
     mon->inc_addr = 0;
@@ -173,10 +179,11 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
                 printf("# Not enough bytes (%d) for message type %d\n", len, type);
                 break;
             }
-            //uint8_t memtype = data[1]; // FIXME: do something with this
+            uint8_t memtype = data[0];
+            set_memtype(memtype);
             uint16_t addr = data[1] | (data[2] << 8);
             printf("# Writing %2d bytes at 0x%04X\n", size, addr);
-            write_block(addr, data+4, size);
+            write_block(addr, data+3, size);
             // TODO: read block to verify it
             break;
          }
