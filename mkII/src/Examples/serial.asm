@@ -11,11 +11,11 @@
 org 0x0000
 .text
 reset:
-nop
-nop
-ld sp, 0x0200   ; Initialise stack pointer
-di              ; Start with interrupts disabled
-jp main
+    nop
+    nop
+    ld sp, 0x0200   ; Initialise stack pointer
+    di              ; Start with interrupts disabled
+    jp main
 
 main:
     call uart_init
