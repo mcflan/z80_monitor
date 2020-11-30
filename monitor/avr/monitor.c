@@ -225,7 +225,7 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             while  (hexify_sender_next(&henc, &c)) cdev_put(EXT_CDEV, c);
             break;
         }
-        case MSG_BUS_ACK:
+        case MSG_BUS_REQ:
             printf("# Acquire bus\n");
             claim_bus();
             break;

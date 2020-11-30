@@ -8,12 +8,30 @@ import serial, sys, argparse
 
 MSG_WR              = 0x01
 MSG_RD              = 0x02
-MSG_BUS_ACK         = 0x03
+MSG_BUS_REQ         = 0x03
 MSG_BUS_REL         = 0x04
 MSG_RESET           = 0x05
 
 ADDRSPACE_MEM = 0
 ADDRSPACE_IO = 1
+
+# Given a byte array, turn all bytes into printable ASCII characters by
+# converting non-printable ones to spaces. There is no trivial way to do this
+# in modern python due to the empracing of unicode, etc. So we'll take a
+# shortcut :P
+def printable(b):
+    pb = bytes([ x if x >= 0x20 and x < 0x7f else 0x20 for x in b])
+    return pb.decode('utf-8')
+
+# Pretty-print 16 bytes of data, showing address, hex and ASCII outputs
+def pretty(addr: int, data: bytearray):
+    count = len(data)
+    print("{:04X} ".format(addr), end='')
+    for b in data:
+        print(" {:02X}".format(b), end='')
+    print("   "*(16-count), end='')
+    print("  ", printable(data))
+
 
 class Message(object):
     def __init__(self, mtype, data):
@@ -54,19 +72,6 @@ def get_msg(port):
         printf("Timeout\n")
         return None
     return Message.from_msg(resp)
-
-def printable(b):
-    pb = bytes([ x if x >= 0x20 and x < 0x7f else 32 for x in b])
-    return pb.decode('utf-8')
-
-def pretty(addr: int, data: bytearray):
-    count = len(data)
-    print("{:04X} ".format(addr), end='')
-    for b in data:
-        print(" {:02X}".format(b), end='')
-    print("   "*(16-count), end='')
-    print("  ", printable(data))
-
 
 def get_resp(port, mtype):
     resp = get_msg(port)
@@ -126,12 +131,14 @@ ser = serial.Serial(args.port, args.baud, timeout=1)
 
 def send_read_msg(port, memtype, addr, size):
     msg = memtype.to_bytes(length=1, byteorder='little')
+    if addr < 0 or addr > 0xffff:
+        raise OverflowError('Address 0x{:05X} is out of range'.format(addr))
     msg += addr.to_bytes(length=2, byteorder='little')
     msg += size.to_bytes(length=1, byteorder='little')
     send_msg(ser, MSG_RD, msg)
 
 
-send_msg(ser, MSG_BUS_ACK)
+send_msg(ser, MSG_BUS_REQ)
 
 if args.read is not None:
     start_addr = args.read[0]
