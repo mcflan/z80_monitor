@@ -165,7 +165,32 @@ void mon_init(mon_t *mon)
 
 void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
 {
-    printf("# Got msg type %2d, length %2d\n", type, len);
+    switch (type) {
+        case MSG_WR: {
+            // type(1), memtype(1), address(2), data(N), checksum(1)
+            int size = len - 3;
+            if (size < 0) {
+                printf("# Not enough bytes (%d) for message type %d\n", len, type);
+                break;
+            }
+            //uint8_t memtype = data[1]; // FIXME: do something with this
+            uint16_t addr = data[1] | (data[2] << 8);
+            printf("# Writing %2d bytes at 0x%04X\n", size, addr);
+            write_block(addr, data+4, size);
+            // TODO: read block to verify it
+            break;
+         }
+        case MSG_BUS_ACK:
+            printf("# Acquire bus\n");
+            claim_bus();
+            break;
+        case MSG_BUS_REL:
+            printf("# Release bus\n");
+            release_bus();
+            break;
+        default:
+            printf("# Don't know about msg type %2d\n", type);
+    }
 }
 
 #define MSG_BUF_SIZE     (64)
