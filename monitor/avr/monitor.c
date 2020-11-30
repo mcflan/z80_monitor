@@ -132,6 +132,15 @@ static inline void write_block(uint16_t addr, uint8_t *data, int size)
     }
 }
 
+static inline void read_block(uint16_t addr, uint8_t *data, int size)
+{
+    int i;
+    for (i = 0; i < size; i++) {
+        write_address(addr++);
+        data[i] = read_data();
+    }
+}
+
 typedef struct mon_s {
     uint16_t addr;
     uint8_t bus_claimed;
@@ -169,6 +178,9 @@ void mon_init(mon_t *mon)
     mon->buf_ptr = 0;
 }
 
+#define RD_BUF_SIZE     (32)
+static uint8_t rd_buf[RD_BUF_SIZE];
+
 void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
 {
     switch (type) {
@@ -182,11 +194,37 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             uint8_t memtype = data[0];
             set_memtype(memtype);
             uint16_t addr = data[1] | (data[2] << 8);
-            printf("# Writing %2d bytes at 0x%04X\n", size, addr);
+            printf("# Writing %2d bytes at 0x%04X - ", size, addr);
             write_block(addr, data+3, size);
-            // TODO: read block to verify it
+            read_block(addr, rd_buf, size);
+            int i;
+            for (i = 0; i < size; i++) {
+                if ((data+3)[i] != rd_buf[i]) break;
+            }
+            if (i < size) {
+                printf("Error at 0x%04X\n", addr+i);
+            } else {
+                printf("ok\n");
+            }
             break;
-         }
+        }
+        case MSG_RD: {
+            uint8_t memtype = data[0];
+            set_memtype(memtype);
+            uint16_t addr = data[1] | (data[2] << 8);
+            int size = data[3];
+            if (size > (RD_BUF_SIZE-2)) {
+                printf("# Can't read more than %d bytes at a time\n", RD_BUF_SIZE-2);
+                break;
+            }
+            rd_buf[0] = addr & 0xff;
+            rd_buf[1] = addr >> 8;
+            read_block(addr, rd_buf+2, size);
+            hexify_sender_start(&henc, MSG_RD, rd_buf, size);
+            char c;
+            while  (hexify_sender_next(&henc, &c)) cdev_put(EXT_CDEV, c);
+            break;
+        }
         case MSG_BUS_ACK:
             printf("# Acquire bus\n");
             claim_bus();

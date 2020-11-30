@@ -7,9 +7,10 @@
 import serial, sys, argparse
 
 MSG_WR              = 0x01
-MSG_BUS_ACK         = 0x02
-MSG_BUS_REL         = 0x03
-MSG_RESET           = 0x04
+MSG_RD              = 0x02
+MSG_BUS_ACK         = 0x03
+MSG_BUS_REL         = 0x04
+MSG_RESET           = 0x05
 
 ADDRSPACE_MEM = 0
 ADDRSPACE_IO = 1
@@ -18,7 +19,6 @@ class Message(object):
     def __init__(self, mtype, data):
         self.type = mtype
         self.data = data
-        return self
 
     @classmethod
     def from_msg(cls, line):
@@ -27,7 +27,7 @@ class Message(object):
         # the linefeed.
         msg = line.decode('utf-8').rstrip()
         if msg[0] == '#':
-            print("Monitor hardware message: {}".format(msg))
+            print(msg)
             return None
         if msg[0] != ':':
             print("Message didn't start with ':' - '{}'".format(msg))
@@ -43,8 +43,8 @@ class Message(object):
         if chksum != 0:
             print("checksum error on message - '{}'".format(msg))
             return None
-        mtype = int(raw[0:2],16)
-        mdata = bytes.fromhex(line[3:-2])
+        mtype = raw[0]
+        mdata = raw[1:-1]
         return cls(mtype, mdata)
 
 
@@ -55,10 +55,21 @@ def get_msg(port):
         return None
     return Message.from_msg(resp)
 
+def printable(b):
+    pb = bytes([ x if x >= 0x20 and x < 0x7f else 32 for x in b])
+    return pb.decode('utf-8')
+
 def get_resp(port, mtype):
     resp = get_msg(port)
     if resp:
-        print("Got response type {}".format(resp.type))
+        if resp.type == 2:
+            addr = int.from_bytes(resp.data[0:2], byteorder='little')
+            print("{:04X} ".format(addr), end='')
+            for b in resp.data[2:]:
+                print(" {:02X}".format(b), end='')
+            print("  ", printable(resp.data[2:]))
+        else: 
+            print("Got response type {}".format(resp.type))
 
 def send_msg(port, mtype, msg: bytearray = None):
     # Prepend type byte
@@ -71,7 +82,7 @@ def send_msg(port, mtype, msg: bytearray = None):
     msg += chksum.to_bytes(length=1, byteorder='little')
     enc = b':' + msg.hex().encode('utf-8') + b'\n'
     port.write(enc)
-    get_resp(port, MSG_WR)
+    get_resp(port, mtype)
 
 # Parse a line from an Intel hex file
 def unhex(line):
@@ -95,10 +106,14 @@ if len(sys.argv) < 2:
     print("usage: {} serial_port_device".format(sys.argv[0]))
     sys.exit(1)
 
+def auto_int(x):
+    return int(x, 0)
 
 parser = argparse.ArgumentParser(description="Z80 Monitor")
 parser.add_argument('-b', '--baud', metavar='baud', type=int, nargs=1,
                     default=230400, help='Baud Rate')
+parser.add_argument('-r', '--read', metavar=('addr','count'), type=auto_int, nargs=2,
+                    default=None, help='Read from addr')
 parser.add_argument('port', type=str, help='Serial Device')
 parser.add_argument('files', type=str, nargs='*',
                     help='Intel Hex File')
@@ -107,7 +122,21 @@ args = parser.parse_args()
 
 ser = serial.Serial(args.port, args.baud, timeout=1)
 
+def send_read_msg(port, memtype, addr, size):
+    msg = memtype.to_bytes(length=1, byteorder='little')
+    msg += addr.to_bytes(length=2, byteorder='little')
+    msg += size.to_bytes(length=1, byteorder='little')
+    send_msg(ser, MSG_RD, msg)
+
+
 send_msg(ser, MSG_BUS_ACK)
+
+if args.read is not None:
+    start_addr = args.read[0]
+    count = args.read[1]
+    for i in range(0,count,16):
+        send_read_msg(ser, ADDRSPACE_MEM, start_addr+i, min(count-i, 16))
+
 for name in args.files:
     with open(name) as f:
         for line in f:
@@ -118,3 +147,4 @@ send_msg(ser, MSG_BUS_REL)
 
 ser.close()
 
+# TODO: implement reading.
