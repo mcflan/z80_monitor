@@ -108,10 +108,6 @@ def unhex(line):
         return msg
     return None
 
-if len(sys.argv) < 2:
-    print("usage: {} serial_port_device".format(sys.argv[0]))
-    sys.exit(1)
-
 def auto_int(x):
     return int(x, 0)
 
