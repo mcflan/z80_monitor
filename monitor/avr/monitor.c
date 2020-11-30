@@ -220,7 +220,7 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             rd_buf[0] = addr & 0xff;
             rd_buf[1] = addr >> 8;
             read_block(addr, rd_buf+2, size);
-            hexify_sender_start(&henc, MSG_RD, rd_buf, size);
+            hexify_sender_start(&henc, MSG_RD, rd_buf, size+2);
             char c;
             while  (hexify_sender_next(&henc, &c)) cdev_put(EXT_CDEV, c);
             break;

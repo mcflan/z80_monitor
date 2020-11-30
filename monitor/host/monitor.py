@@ -59,15 +59,21 @@ def printable(b):
     pb = bytes([ x if x >= 0x20 and x < 0x7f else 32 for x in b])
     return pb.decode('utf-8')
 
+def pretty(addr: int, data: bytearray):
+    count = len(data)
+    print("{:04X} ".format(addr), end='')
+    for b in data:
+        print(" {:02X}".format(b), end='')
+    print("   "*(16-count), end='')
+    print("  ", printable(data))
+
+
 def get_resp(port, mtype):
     resp = get_msg(port)
     if resp:
         if resp.type == 2:
             addr = int.from_bytes(resp.data[0:2], byteorder='little')
-            print("{:04X} ".format(addr), end='')
-            for b in resp.data[2:]:
-                print(" {:02X}".format(b), end='')
-            print("  ", printable(resp.data[2:]))
+            pretty(addr, resp.data[2:])
         else: 
             print("Got response type {}".format(resp.type))
 
