@@ -4,69 +4,80 @@ org 0x0000
 reset:
 	nop
 	nop
-    ld sp, 0x0200   ; Initialise stack pointer
+    ld sp, 0x0400   ; Initialise stack pointer
     di              ; Start with interrupts disabled
     jp main
 
 main:
-    ld a,40
+    ld a,80
     call wait_ms
 
-    ld a,0x30           ; Init
-    call wr_lcd_nochk
+    call lcd_init
 
-    ld a,4
-    call wait_ms
-
-    ld a,0x30           ; Init
-    call wr_lcd_nochk
-
-    ld a,10
-    call wait
-
-    ld a,0x30           ; Init
-    call wr_lcd_nochk
-
-    ld a,0x30           ; Set 8-bit mode
+    ld a,0
+    or 0x80
     call wr_lcd_inst
+
+	ld de,msg           ; Init msg pointer
+    call send_msg
+
+    ld a,20
+    or 0x80
+    call wr_lcd_inst
+    halt
+
+
+send_msg:
+	ld a,(de)           ; Get data
+	cp 0x00             ; It's NULL-terminated
+	ret z
+    call wr_lcd_data
+	inc de              ; Point to next character in message
+	jr send_msg
+
+lcd_init:
+    ld a,0x38           ; Set 8-bit mode, 2 lines
+    call wr_lcd_inst_nochk
+    ld a,2
+    call wait
+    ld a,0x38
+    call wr_lcd_inst_nochk
+    ld a,2
+    call wait
 
     ld a,0x0f           ; Display on
     call wr_lcd_inst
-
+    ld a,2
+    call wait
     ld a,0x01           ; Clear the display
     call wr_lcd_inst
-
+    ld a,2
+    call wait_ms
     ld a,0x06           ; Set entry mode: inc cursor to right, don't scroll
     call wr_lcd_inst
 
     ld a,0x02           ; Return cursor to home
     call wr_lcd_inst
-
-
-
-	ld de,msg           ; Init msg pointer
-loop:
-	ld a,(de)           ; Get data
-	cp 0x00             ; It's NULL-terminated
-	jr z,end
-    call wr_lcd_data
-	inc de              ; Point to next character in message
-	jr loop
-end:
-	halt
+    ld a,2
+    call wait_ms
+    ret
 
 wr_lcd_inst:
-	in a,(0x30)         ; Read LCD control word register
+    ld b,a              ; Save A
+	in a,(0x32)         ; Read LCD control word register
 	bit 7,a             ; Check BUSY flag, MSB of register
 	jr nz,wr_lcd_inst   ; Loop until not busy
-wr_lcd_nochk:
+    ld a,b              ; Restore A
+wr_lcd_inst_nochk:
 	out (0x30),a        ; Write LCD instruction register
     ret
 
 wr_lcd_data:
-	in a,(0x30)         ; Read LCD control word register
+    ld b,a              ; Save A
+	in a,(0x32)         ; Read LCD control word register
 	bit 7,a             ; Check BUSY flag, MSB of register
 	jr nz,wr_lcd_data   ; Loop until not busy
+    ld a,b              ; Restore A
 	out (0x31),a        ; Write LCD instruction register
     ret
 
@@ -106,7 +117,6 @@ wait_ms_loop:
 
 .data
 msg:
-    .string "Z80 Mk II   "
-    .string "J.L.Macfarlane"
+    .string "Z80 Mk II                               J.L.Macfarlane 1991                     "
     .byte 0x00
 
