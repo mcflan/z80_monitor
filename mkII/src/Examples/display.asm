@@ -21,7 +21,13 @@ main:
 	ld de,msg           ; Init msg pointer
     call send_msg
 
-    ld a,20
+    ; Move cursor. The 20x4 display has a stupid layout.
+    ; Lines 1 and 3 behave as a contiguous 40 character strip,
+    ; and lines 2 and 4 are the same but they start at a cursor
+    ; address offset of 64 (0x40.) However, writing 40 chars
+    ; starting at posn 1 on line 1 will wrap it to posn 1 on
+    ; line 3. Go figure. 
+    ld a,84
     or 0x80
     call wr_lcd_inst
     halt
@@ -35,6 +41,11 @@ send_msg:
 	inc de              ; Point to next character in message
 	jr send_msg
 
+
+; This is the software reset sequence from the Siltronix ST7066U
+; datasheet. This chip is copy of the Hitachi HD44780. Ish. The
+; software reset sequences in the HD44780 data sheet does not
+; have the same timings.
 lcd_init:
     ld a,0x38           ; Set 8-bit mode, 2 lines
     call wr_lcd_inst_nochk
