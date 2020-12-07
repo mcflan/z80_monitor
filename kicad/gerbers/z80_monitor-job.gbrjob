@@ -7,7 +7,7 @@
       "Application": "Pcbnew",
       "Version":     "5.1.8-db9833491~88~ubuntu18.04.1"
     },
-    "CreationDate":  "2020-12-07T13:57:58+00:00"
+    "CreationDate":  "2020-12-07T14:20:23+00:00"
   },
   "GeneralSpecs":
   {
@@ -40,47 +40,42 @@
   "FilesAttributes":
   [
     {
-      "Path":  "z80_monitor-F_Cu.gbr",
+      "Path":  "z80_monitor-F_Cu.gtl",
       "FileFunction":  "Copper,L1,Top",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "z80_monitor-B_Cu.gbr",
+      "Path":  "z80_monitor-B_Cu.gbl",
       "FileFunction":  "Copper,L2,Bot",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "z80_monitor-F_Paste.gbr",
+      "Path":  "z80_monitor-F_Paste.gtp",
       "FileFunction":  "SolderPaste,Top",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "z80_monitor-B_Paste.gbr",
-      "FileFunction":  "SolderPaste,Bot",
-      "FilePolarity":  "Positive"
-    },
-    {
-      "Path":  "z80_monitor-F_SilkS.gbr",
+      "Path":  "z80_monitor-F_SilkS.gto",
       "FileFunction":  "Legend,Top",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "z80_monitor-B_SilkS.gbr",
+      "Path":  "z80_monitor-B_SilkS.gbo",
       "FileFunction":  "Legend,Bot",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "z80_monitor-F_Mask.gbr",
+      "Path":  "z80_monitor-F_Mask.gts",
       "FileFunction":  "SolderMask,Top",
       "FilePolarity":  "Negative"
     },
     {
-      "Path":  "z80_monitor-B_Mask.gbr",
+      "Path":  "z80_monitor-B_Mask.gbs",
       "FileFunction":  "SolderMask,Bot",
       "FilePolarity":  "Negative"
     },
     {
-      "Path":  "z80_monitor-Edge_Cuts.gbr",
+      "Path":  "z80_monitor-Edge_Cuts.gm1",
       "FileFunction":  "Profile",
       "FilePolarity":  "Positive"
     }
@@ -115,10 +110,6 @@
     {
       "Type":  "SolderMask",
       "Notes":  "Layer B.Mask"
-    },
-    {
-      "Type":  "SolderPaste",
-      "Notes":  "Layer B.Paste"
     },
     {
       "Type":  "Legend",
