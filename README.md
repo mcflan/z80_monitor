@@ -1,7 +1,7 @@
 # Z80 Monitor
 
 
-![alt text](images/z80_monitor-render.jpg | width=200)
+![Z80 Monitor 3D kicad render](images/z80_monitor-render.jpg | width=200)
 
 A device that allows a host PC to read and write memory on the bus of a Z80
 computer (or potentially other CPUs) as well as a few other functions. It makes
