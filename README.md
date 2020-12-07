@@ -1,5 +1,8 @@
 # Z80 Monitor
 
+
+![alt text](images/z80_monitor-render.jpg | width=200)
+
 A device that allows a host PC to read and write memory on the bus of a Z80
 computer (or potentially other CPUs) as well as a few other functions. It makes
 use of the Z80's BUSRQ / BUSAK feature to gain access to the bus while the CPU
