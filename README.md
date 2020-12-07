@@ -28,4 +28,4 @@ This is 6-way single-row header to fit a standard FTDI FT232 serial cable (TTL t
 
 ## Bus Connector
 
-See the [pinout file](pinout.md)
+See the [pinout file](bus_pinout.md)
