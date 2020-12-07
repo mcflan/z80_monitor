@@ -11,3 +11,21 @@ protocol to control the monitor and provide handshaking. The host interface is
 electrically isolated to allow the target device to be power-cycled properly
 without being back-powered by the serial signals. This also avoids any risk of
 SCR latch-up.
+
+## Host Connector
+
+This is 6-way single-row header to fit a standard FTDI FT232 serial cable (TTL type.) It will work with the 5V and 3V3 versions.
+
+ | Number | Function      |
+ |:------:|:------------- |
+ |  6     | Not Used      |
+ |  5     | Serial Out    |
+ |  4     | Serial In     |
+ |  3     | Power In      |
+ |  2     | Not Used      |
+ |  1     | Ground        |
+
+
+## Bus Connector
+
+See the [pinout file](pinout.md)
