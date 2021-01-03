@@ -118,7 +118,7 @@ def auto_int(x):
 
 parser = argparse.ArgumentParser(description="Z80 Monitor")
 parser.add_argument('-b', '--baud', metavar='baud', type=int,
-                    default=230400, help='Baud Rate')
+                    default=115200, help='Baud Rate')
 parser.add_argument('-r', '--read', metavar=('addr','count'), type=auto_int, nargs=2,
                     default=None, help='Read from addr')
 parser.add_argument('port', type=str, help='Serial Device')
@@ -128,6 +128,7 @@ parser.add_argument('files', type=str, nargs='*',
 args = parser.parse_args()
 
 ser = serial.Serial(args.port, args.baud, timeout=1)
+ser.reset_input_buffer()
 
 def send_read_msg(port, memtype, addr, size):
     msg = memtype.to_bytes(length=1, byteorder='little')

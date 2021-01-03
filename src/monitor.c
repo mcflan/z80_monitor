@@ -224,10 +224,11 @@ static void main_loop(mon_t *mon)
         char c = cdev_get(COM_CDEV);
         int ret = hexify_recvr_next(&hdec, c, &type, &len);
         if (ret == 0) {
+            led_once(COMS_LED, RATE(0.1));
             do_msg(mon, type, len, msgbuf);
-            //led_once(COMS_LED, RATE(0.5));
         }
         if (ret < 0) {
+            led_once(COMS_LED, RATE(0.02));
             printf("# Hex encoding error %d\n", ret);
         }
     }
@@ -319,17 +320,17 @@ int main(void)
 
     led_init(leds, LEDS_NUMOF);
 
-    PORTB = 1 << COMS_LED_PIN;
-
     /* turn on global interrupts */
     sei();
 
-    usart1_init(COM_CDEV, 8); /* 115200 baud */
+    //usart1_init(COM_CDEV, 8); /* 230400 baud - this doesn't receive well enough to cope with adjacent bytes */
+    //usart1_init(COM_CDEV, 1); /* 1M baud */
+    usart1_init(COM_CDEV, 16); /* 115200 baud */
     stdout = &usart1_fp;
 
     cdev_put(COM_CDEV, '\n');
     cdev_put(COM_CDEV, '\r');
-    PRINT("MCU Monitor. J.Macfarlane 2020\n\r");
+    PRINT("# MCU Monitor. J.Macfarlane 2020\n\r");
     PRINT(VERSION_MSG);
 
     main_loop(&mon);
