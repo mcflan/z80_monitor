@@ -205,6 +205,15 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             bus_enable(false);
             set_BUSRQ(false);
             break;
+        case MSG_RESET:
+            printf("# Reset and release\n");
+            set_reset(true);
+            _delay_us(100);
+            bus_enable(false);
+            set_BUSRQ(false);
+            _delay_ms(50);
+            set_reset(false);
+            break;
         default:
             printf("# Don't know about msg type %2d\n", type);
     }

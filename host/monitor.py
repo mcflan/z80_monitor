@@ -43,7 +43,11 @@ class Message(object):
         # line is a bytearray received by the serial module.
         # We need to convert it to a string first and remove
         # the linefeed.
-        msg = line.decode('utf-8').rstrip()
+        try:
+            msg = line.decode('utf-8').rstrip()
+        except UnicodeDecodeError:
+            print("Decode error for msg '{}'".format(line))
+            return None
         if msg[0] == '#':
             print(msg)
             return None
@@ -121,14 +125,22 @@ parser.add_argument('-b', '--baud', metavar='baud', type=int,
                     default=115200, help='Baud Rate')
 parser.add_argument('-r', '--read', metavar=('addr','count'), type=auto_int, nargs=2,
                     default=None, help='Read from addr')
+parser.add_argument('-R', '--reset', action='store_true', help='Reset target before releasing bus. Useful if you want to upload some code and run it.')
 parser.add_argument('port', type=str, help='Serial Device')
 parser.add_argument('files', type=str, nargs='*',
                     help='Intel Hex File')
 
 args = parser.parse_args()
 
+# Open port initially with a small timeout to clear any junk
+# data. The API does not seem to provide a nice way to do
+# this. The seemingly promising 'reset_input_buffer()'
+# doesn't.
+ser = serial.Serial(args.port, args.baud, timeout=0.05)
+while ser.read(): pass
+ser.close()
+
 ser = serial.Serial(args.port, args.baud, timeout=1)
-ser.reset_input_buffer()
 
 def send_read_msg(port, memtype, addr, size):
     msg = memtype.to_bytes(length=1, byteorder='little')
@@ -153,7 +165,10 @@ for name in args.files:
             msg = unhex(line)
             if msg is not None:
                 send_msg(ser, MSG_WR, msg)
-send_msg(ser, MSG_BUS_REL)
+if args.reset:
+    send_msg(ser, MSG_RESET) # Also releases bus
+else:
+    send_msg(ser, MSG_BUS_REL)
 
 ser.close()
 
