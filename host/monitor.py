@@ -120,6 +120,15 @@ def unhex(line):
 def auto_int(x):
     return int(x, 0)
 
+def send_read_msg(port, memtype, addr, size):
+    msg = memtype.to_bytes(length=1, byteorder='little')
+    if addr < 0 or addr > 0xffff:
+        raise OverflowError('Address 0x{:05X} is out of range'.format(addr))
+    msg += addr.to_bytes(length=2, byteorder='little')
+    msg += size.to_bytes(length=1, byteorder='little')
+    send_msg(ser, MSG_RD, msg)
+
+
 parser = argparse.ArgumentParser(description="Z80 Monitor")
 parser.add_argument('-b', '--baud', metavar='baud', type=int,
                     default=115200, help='Baud Rate')
@@ -142,15 +151,6 @@ ser.close()
 
 ser = serial.Serial(args.port, args.baud, timeout=1)
 
-def send_read_msg(port, memtype, addr, size):
-    msg = memtype.to_bytes(length=1, byteorder='little')
-    if addr < 0 or addr > 0xffff:
-        raise OverflowError('Address 0x{:05X} is out of range'.format(addr))
-    msg += addr.to_bytes(length=2, byteorder='little')
-    msg += size.to_bytes(length=1, byteorder='little')
-    send_msg(ser, MSG_RD, msg)
-
-
 send_msg(ser, MSG_BUS_REQ)
 
 if args.read is not None:
@@ -165,11 +165,10 @@ for name in args.files:
             msg = unhex(line)
             if msg is not None:
                 send_msg(ser, MSG_WR, msg)
+
 if args.reset:
     send_msg(ser, MSG_RESET) # Also releases bus
 else:
     send_msg(ser, MSG_BUS_REL)
 
 ser.close()
-
-# TODO: implement reading.
