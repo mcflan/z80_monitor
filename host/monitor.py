@@ -11,6 +11,7 @@ MSG_RD              = 0x02
 MSG_BUS_REQ         = 0x03
 MSG_BUS_REL         = 0x04
 MSG_RESET           = 0x05
+MSG_NMI             = 0x06
 
 ADDRSPACE_MEM = 0
 ADDRSPACE_IO = 1
@@ -135,6 +136,7 @@ parser.add_argument('-b', '--baud', metavar='baud', type=int,
 parser.add_argument('-r', '--read', metavar=('addr','count'), type=auto_int, nargs=2,
                     default=None, help='Read from addr')
 parser.add_argument('-R', '--reset', action='store_true', help='Reset target before releasing bus. Useful if you want to upload some code and run it.')
+parser.add_argument('-N', '--nmi', action='store_true', help='Cycle NMI line')
 parser.add_argument('port', type=str, help='Serial Device')
 parser.add_argument('files', type=str, nargs='*',
                     help='Intel Hex File')
@@ -150,6 +152,10 @@ while ser.read(): pass
 ser.close()
 
 ser = serial.Serial(args.port, args.baud, timeout=1)
+
+if args.nmi:
+    send_msg(ser, MSG_NMI);
+    sys.exit(0)
 
 send_msg(ser, MSG_BUS_REQ)
 

@@ -214,6 +214,12 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             _delay_ms(50);
             set_reset(false);
             break;
+        case MSG_NMI:
+            printf("# NMI\n");
+            set_NMI(true);
+            _delay_us(50);
+            set_NMI(false);
+            break;
         default:
             printf("# Don't know about msg type %2d\n", type);
     }
