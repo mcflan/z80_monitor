@@ -122,6 +122,14 @@ static inline void write_block(uint16_t addr, uint8_t memtype, uint8_t *data, in
     }
 }
 
+static inline void clear_block(uint16_t addr, uint8_t memtype, unsigned int size, uint8_t value)
+{
+    unsigned int i;
+    for (i = 0; i < size; i++) {
+        write_cycle(addr++, memtype, value);
+    }
+}
+
 static inline void read_block(uint16_t addr, uint8_t memtype, uint8_t *data, int size)
 {
     int i;
@@ -220,6 +228,15 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             _delay_us(50);
             set_NMI(false);
             break;
+        case MSG_CLEAR: {
+            uint8_t memtype = data[0];
+            uint16_t addr = data[1] | (data[2] << 8);
+            uint16_t size = data[3] | (data[4] << 8);
+            int value = data[5];
+            printf("# Starting at 0x%04X, clear %5u bytes to value 0x%02X\n", addr, size, value);
+            clear_block(addr, memtype, size, value);
+            break;
+        }
         default:
             printf("# Don't know about msg type %2d\n", type);
     }

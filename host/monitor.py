@@ -12,6 +12,7 @@ MSG_BUS_REQ         = 0x03
 MSG_BUS_REL         = 0x04
 MSG_RESET           = 0x05
 MSG_NMI             = 0x06
+MSG_CLEAR           = 0x07
 
 ADDRSPACE_MEM = 0
 ADDRSPACE_IO = 1
@@ -129,15 +130,28 @@ def send_read_msg(port, memtype, addr, size):
     msg += size.to_bytes(length=1, byteorder='little')
     send_msg(ser, MSG_RD, msg)
 
+def send_clear_msg(port, memtype, addr, size, value):
+    msg = memtype.to_bytes(length=1, byteorder='little')
+    if addr < 0 or addr > 0xffff:
+        raise OverflowError('Address 0x{:05X} is out of range'.format(addr))
+    if size < 0 or size > 0xffff:
+        raise OverflowError('Count 0x{:05X} is out of range'.format(count))
+    msg += addr.to_bytes(length=2, byteorder='little')
+    msg += size.to_bytes(length=2, byteorder='little')
+    msg += value.to_bytes(length=1, byteorder='little')
+    send_msg(ser, MSG_CLEAR, msg)
+
 
 parser = argparse.ArgumentParser(description="Z80 Monitor")
 parser.add_argument('-b', '--baud', metavar='baud', type=int,
                     default=115200, help='Baud Rate')
 parser.add_argument('-r', '--read', metavar=('addr','count'), type=auto_int, nargs=2,
                     default=None, help='Read from addr')
-parser.add_argument('-R', '--reset', action='store_true', help='Reset target before releasing bus. Useful if you want to upload some code and run it.')
+parser.add_argument('-c', '--clear', metavar=('addr', 'count', 'value'), type=auto_int, nargs=3,
+                    default=None, help='Clear all memory in range to constant value')
+parser.add_argument('-R', '--reset', action='store_true', help='Reset target before releasing bus.')
 parser.add_argument('-N', '--nmi', action='store_true', help='Cycle NMI line')
-parser.add_argument('port', type=str, help='Serial Device')
+parser.add_argument('-p', '--port', type=str, help='Serial port', required=True)
 parser.add_argument('files', type=str, nargs='*',
                     help='Intel Hex File')
 
@@ -158,6 +172,12 @@ if args.nmi:
     sys.exit(0)
 
 send_msg(ser, MSG_BUS_REQ)
+
+if args.clear is not None:
+    start_addr = args.clear[0]
+    count = args.clear[1]
+    value = args.clear[2]
+    send_clear_msg(ser, ADDRSPACE_MEM, start_addr, count, value)
 
 if args.read is not None:
     start_addr = args.read[0]

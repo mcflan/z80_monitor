@@ -7,6 +7,7 @@
 #define MSG_BUS_REL         (0x04)
 #define MSG_RESET           (0x05)
 #define MSG_NMI             (0x06)
+#define MSG_CLEAR           (0x07)
 
 #define ADDRSPACE_MEM       (0)
 #define ADDRSPACE_IO        (1)
