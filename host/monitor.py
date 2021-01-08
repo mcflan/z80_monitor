@@ -8,11 +8,12 @@ import serial, sys, argparse
 
 MSG_WR              = 0x01
 MSG_RD              = 0x02
-MSG_BUS_REQ         = 0x03
-MSG_BUS_REL         = 0x04
-MSG_RESET           = 0x05
-MSG_NMI             = 0x06
-MSG_CLEAR           = 0x07
+MSG_CLEAR           = 0x03
+MSG_BUS_REQ         = 0x04
+MSG_BUS_REL         = 0x05
+MSG_RESET           = 0x06
+MSG_NMI             = 0x07
+MSG_INT             = 0x08
 
 ADDRSPACE_MEM = 0
 ADDRSPACE_IO = 1
@@ -151,6 +152,7 @@ parser.add_argument('-c', '--clear', metavar=('addr', 'count', 'value'), type=au
                     default=None, help='Clear all memory in range to constant value')
 parser.add_argument('-R', '--reset', action='store_true', help='Reset target before releasing bus.')
 parser.add_argument('-N', '--nmi', action='store_true', help='Cycle NMI line')
+parser.add_argument('-I', '--int', action='store_true', help='Cycle INT line')
 parser.add_argument('-p', '--port', type=str, help='Serial port', required=True)
 parser.add_argument('files', type=str, nargs='*',
                     help='Intel Hex File')
@@ -169,6 +171,10 @@ ser = serial.Serial(args.port, args.baud, timeout=1)
 
 if args.nmi:
     send_msg(ser, MSG_NMI);
+    sys.exit(0)
+
+if args.int:
+    send_msg(ser, MSG_INT);
     sys.exit(0)
 
 send_msg(ser, MSG_BUS_REQ)

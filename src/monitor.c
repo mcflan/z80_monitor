@@ -200,6 +200,15 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             while  (hexify_sender_next(&henc, &c)) cdev_put(COM_CDEV, c);
             break;
         }
+        case MSG_CLEAR: {
+            uint8_t memtype = data[0];
+            uint16_t addr = data[1] | (data[2] << 8);
+            uint16_t size = data[3] | (data[4] << 8);
+            int value = data[5];
+            printf("# Starting at 0x%04X, clear %5u bytes to value 0x%02X\n", addr, size, value);
+            clear_block(addr, memtype, size, value);
+            break;
+        }
         case MSG_BUS_REQ:
             printf("# Acquire bus\n");
             set_BUSRQ(true);
@@ -228,15 +237,12 @@ void do_msg(mon_t *mon, uint8_t type, int len, uint8_t *data)
             _delay_us(50);
             set_NMI(false);
             break;
-        case MSG_CLEAR: {
-            uint8_t memtype = data[0];
-            uint16_t addr = data[1] | (data[2] << 8);
-            uint16_t size = data[3] | (data[4] << 8);
-            int value = data[5];
-            printf("# Starting at 0x%04X, clear %5u bytes to value 0x%02X\n", addr, size, value);
-            clear_block(addr, memtype, size, value);
+        case MSG_INT:
+            printf("# INT\n");
+            set_INT(true);
+            _delay_us(50);
+            set_INT(false);
             break;
-        }
         default:
             printf("# Don't know about msg type %2d\n", type);
     }
